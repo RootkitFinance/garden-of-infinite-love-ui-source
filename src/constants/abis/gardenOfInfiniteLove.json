@@ -1,0 +1,191 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_dev6",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_dev9",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20",
+        "name": "_rootkit",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_rootkitFeed",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "flower",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "pairedToken",
+        "type": "address"
+      }
+    ],
+    "name": "FlowerPlanted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "flowers",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "pairedAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "parentToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "strainParent",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "burnRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "upPercent",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "upDelay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "flowersOfPair",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "pairedFlowers",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pairedToken",
+        "type": "address"
+      }
+    ],
+    "name": "plantNewSeed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "recoverTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rootkit",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "spreadTheLove",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
