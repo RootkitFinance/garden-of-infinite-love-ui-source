@@ -16,8 +16,10 @@ import { useEffect } from "react";
 import TransferOwnership from "../TransferOwnership";
 
 const Wrapper = styled.div`
+    padding-top: 0.5em;
     display: grid;
     grid-gap: 1em;
+    border-bottom: 1px solid ${({ theme }) => theme.text3};
 `
 
 const TextRow = styled.div`

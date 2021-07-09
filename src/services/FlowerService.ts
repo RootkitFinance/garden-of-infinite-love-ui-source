@@ -4,7 +4,7 @@ import octalilyAbi from '../constants/abis/octalily.json'
 import erc20abi from '../constants/abis/erc20.json'
 import { Web3Provider } from '@ethersproject/providers'
 import { Chain, gardenAddresses } from '../constants'
-import { getBalanceNumber, getDisplayBalance } from '../utils/formatBalance'
+import { getDisplayBalance } from '../utils/formatBalance'
 import { FlowerInfo } from '../dtos/FlowerInfo'
 import { parseEther } from '@ethersproject/units'
 
@@ -19,11 +19,9 @@ export class FlowerService {
 
     public async getFlowers(pairedAddress: string){
         const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
-        console.log(this.chain);
-        console.log(contract.address);
-        const count = getBalanceNumber(await contract.flowersOfPair(pairedAddress));
+       
+        const count = parseInt(await contract.flowersOfPair(pairedAddress));
         const flowers: FlowerInfo[] = [];
-        
         for (let i = 0; i < count; i++){
             const flowerAddress = await contract.pairedFlowers(pairedAddress, i);
             const info = await this.getInfo(pairedAddress, flowerAddress);

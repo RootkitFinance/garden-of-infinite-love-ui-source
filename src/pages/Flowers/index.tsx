@@ -12,7 +12,7 @@ import { isAddress, supportedChain } from "../../utils";
 const Wrapper = styled.div`
     display: grid;    
     padding: 1em;
-    grid-gap: 1em;
+    grid-gap: 2em;
     width: 100%;
     justify-items: center;
 `

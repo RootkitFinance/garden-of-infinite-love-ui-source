@@ -34,9 +34,9 @@ export const chains = new Map([
 ])
 
 export const gardenAddresses = new Map([
-  [Chain.Ethereum, "0xF345Fe85bDb2565fdAe6B4dB371CCA6732b1D344"],
-  [Chain.Matic, "0x07E0B36d549763D5C29B8028cAF4D2227C8A8B9A"],
-  [Chain.Bsc, "0xE519740Da2E208beee91C90f460121f25988c198"],
+  [Chain.Ethereum, "0x97576940896a13969e8DF189B1F817277862bd0a"],
+  [Chain.Matic, "0x27DE81e7fC08557Dac88d24c1D4515c059530DA1"],
+  [Chain.Bsc, "0x1B5C13d72Fb75847b7b2A74ce0Fd999c2ae13687"],
 ])
 
 export interface WalletInfo {
