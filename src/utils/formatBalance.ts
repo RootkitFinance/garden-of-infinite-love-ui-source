@@ -5,9 +5,8 @@ export const getBalanceNumber = (balance: any, decimals = 18) => {
   return displayBalance.toNumber()
 }
 
-export const getDisplayBalance = (balance: any, decimals = 18) => {
+export const getDisplayBalance = (balance: any, decimals = 18, displayDecimals = 4) => {
   const displayBalance = new BigNumber(balance.toString()).dividedBy(new BigNumber(10).pow(decimals))
-  const displayDecimals = 4;
   return parseFloat(displayBalance.toFixed(displayDecimals, 1)).toLocaleString(undefined, { maximumFractionDigits: displayDecimals, minimumFractionDigits: displayDecimals })
 }
 

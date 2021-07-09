@@ -12,6 +12,8 @@ import { extractErrorMessage } from "../../utils/extractErrorMessage";
 import { ErrorMessage } from "../ErrorMessage";
 import Buy from "../Buy";
 import Sell from "../Sell";
+import { useEffect } from "react";
+import TransferOwnership from "../TransferOwnership";
 
 const Wrapper = styled.div`
     display: grid;
@@ -56,11 +58,28 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
     const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
     const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);
     const [payFeesStatus, setPayFeesStatus] = useState<Status>(Status.None);
+    const [claimOwnershipStatus, setClaimOwnershipStatus] = useState<Status>(Status.None);    
     const [error, setError] = useState("");
     const [transactionHash, setTransactionHash] = useState<string>("");
     const { chain } = useContext(ControlCenterContext);
     const [buyOpen, setBuyOpen] = useState<boolean>(false);
     const [sellOpen, setSellOpen] = useState<boolean>(false);
+    const [transferOwnershipOpen, setTransferOwnershipOpen] = useState<boolean>(false);
+    const [isOwner, setIsOwner] = useState<boolean>(false);
+    const [isPendingOwner, setIsPendingOwner] = useState<boolean>(false);
+
+    useEffect(() => {
+        const getOwner = async () => {
+            const service = new FlowerService(library, account!, chain);
+            const owner = await service.getOwner(flowerInfo.address);
+            const pendingOwner = await service.getPendingOwner(flowerInfo.address);
+            setIsOwner(owner === account);
+            setIsPendingOwner(pendingOwner === account);
+        }
+        if(account) {
+            getOwner();
+        }       
+    },[])
 
     const cover = async () => {
         setCoverStatus(Status.Pending);
@@ -146,6 +165,45 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
         }
     }
 
+    const claimOwnership = async () => {
+        setClaimOwnershipStatus(Status.Pending);
+        try {
+            const service = new FlowerService(library, account!, chain);
+            const txResponse = await service.claimOwnership(flowerInfo.address);
+
+            if (txResponse) {
+                const receipt = await txResponse.wait()
+                if (receipt?.status === 1) {
+                    setTransactionHash(receipt.transactionHash);
+                    setClaimOwnershipStatus(Status.Done);
+                    setIsOwner(true);
+                    setIsPendingOwner(false);
+                }
+                else {
+                    setError("Transaction Failed");
+                    setClaimOwnershipStatus(Status.None); 
+                }
+            }
+        }
+        catch(e){
+            console.log(e)
+            const errorMessage = extractErrorMessage(e);
+            if(errorMessage) {
+                setError(errorMessage);
+            }
+            setClaimOwnershipStatus(Status.None); 
+        }
+    }
+
+    const onTransferOwnership = async () => {
+        setTransferOwnershipOpen(false);
+        const service = new FlowerService(library, account!, chain);
+        const owner = await service.getOwner(flowerInfo.address);
+        const pendingOwner = await service.getPendingOwner(flowerInfo.address);
+        setIsOwner(owner === account);
+        setIsPendingOwner(pendingOwner === account);
+    }
+
     return (
         <Wrapper>
             <TransactionCompletedModal 
@@ -167,11 +225,15 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
                 isOpen={buyOpen} 
                 onDismiss={() => setBuyOpen(false)} 
                 pairedAddress={flowerInfo.pairedAddress} 
-                flowerAddress = {flowerInfo.address}/>
+                flowerAddress = {flowerInfo.address} />
             <Sell 
                 isOpen={sellOpen} 
                 onDismiss={() => setSellOpen(false)} 
-                flowerAddress = {flowerInfo.address}/>
+                flowerAddress = {flowerInfo.address} />
+            <TransferOwnership
+                isOpen={transferOwnershipOpen} 
+                onDismiss={onTransferOwnership} 
+                flowerAddress = {flowerInfo.address} />
             <TextRow>
                 <Label>Address</Label>
                 <AddressLink href={getEtherscanLink(chainId!, flowerInfo.address, 'address')}>
@@ -204,6 +266,12 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
                 <ButtonPrimary onClick={payFees}>
                     {payFeesStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Pay Fees"}
                 </ButtonPrimary>
+            </ButtonRow>
+            <ButtonRow>
+                {isOwner && <ButtonPrimary onClick={() => setTransferOwnershipOpen(true)}>Transfer Ownership</ButtonPrimary> }
+                {isPendingOwner && <ButtonPrimary onClick={claimOwnership}>
+                    {claimOwnershipStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Claim Ownership"}
+                </ButtonPrimary>}
             </ButtonRow>
             {error ? <ErrorMessage error={error} /> : null}
         </Wrapper>

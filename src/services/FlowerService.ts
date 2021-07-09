@@ -36,7 +36,7 @@ export class FlowerService {
     private async getInfo(pairedAddress: string, flowerAddress: string) {
         const balance = await this.getBalance(pairedAddress, flowerAddress);
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
-        const price = getDisplayBalance(await contract.price());
+        const price = getDisplayBalance(await contract.price(), 18, 18);
         const totalSupply = getDisplayBalance(await contract.totalSupply());
 
         return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance);
@@ -70,5 +70,25 @@ export class FlowerService {
     public async payFees(flowerAddress: string) {
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         return await contract.payFees();
+    }
+
+    public async getOwner(flowerAddress: string) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return await contract.owner();
+    }
+
+    public async getPendingOwner(flowerAddress: string) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return await contract.pendingOwner();
+    }
+
+    public async transferOwnership(flowerAddress: string, newOwner: string) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return await contract.transferOwnership(newOwner);
+    }
+
+    public async claimOwnership(flowerAddress: string) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return await contract.claimOwnership();
     }
 }

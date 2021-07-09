@@ -6,7 +6,7 @@ import { ControlCenterContext } from "../../contexts/ControlCenterContext";
 import { supportedChain } from "../../utils";
 import { FlowerService } from "../../services/FlowerService";
 
-const BuyAndTax = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: string, isOpen: boolean, onDismiss: () => void }) => {
+const Sell = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: string, isOpen: boolean, onDismiss: () => void }) => {
     const { account, library, chainId } = useWeb3React()
     const [value, setValue] = useState<string>("")    
     const [balance, setBalance] = useState<string>("")
@@ -19,7 +19,7 @@ const BuyAndTax = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: strin
         }
     }, [chain, flowerAddress, library, account, isOpen, chainId])
 
-    const buyAndTax = async () => {
+    const sell = async () => {
         const amount = parseFloat(value);
         if (!Number.isNaN(amount) && amount > 0){
             return await await new FlowerService(library, account!, chain).sell(flowerAddress, value);
@@ -32,11 +32,11 @@ const BuyAndTax = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: strin
     }
 
     return (
-        <ActionModal isOpen={isOpen} onDismiss={close} action={buyAndTax} title={"Sell"}>
+        <ActionModal isOpen={isOpen} onDismiss={close} action={sell} title={"Sell"}>
             <CurrencyInput
                 value={value}
                 balance={balance}
-                onSubmit={buyAndTax}
+                onSubmit={sell}
                 ticker={""}
                 label={"Amount to spend"}
                 onMax={() => setValue(balance.toString())}
@@ -47,4 +47,4 @@ const BuyAndTax = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: strin
     )
 }
 
-export default BuyAndTax
+export default Sell
