@@ -42,9 +42,9 @@ export class FlowerService {
         return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance);
     }
 
-    public async buy(flowerAddress: string) {
+    public async buy(flowerAddress: string, value: string) {
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
-        return await contract.buy();
+        return await contract.buy(parseEther(value));
     }
 
     public async sell(flowerAddress: string, value: string) {

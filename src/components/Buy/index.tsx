@@ -121,11 +121,18 @@ const Buy = (
    }
 
     const buy = async () => {
+        const amount = parseFloat(value);
+        if (Number.isNaN(amount) || amount <= 0) {
+            setError("Enter amount");
+            return;
+        }
+        setError("");
+
         try {
             setStatus(Status.Pending)
             setError("")
             const service = new FlowerService(library, account!, chain)
-            const txResponse = await service.buy(flowerAddress);  
+            const txResponse = await service.buy(flowerAddress, value);  
             if (txResponse) {                 
                 const receipt = await txResponse.wait()
                
