@@ -61,4 +61,14 @@ export class FlowerService {
         const erc20Contract = new Contract(tokenAddress, erc20abi, this.signer);
         return getDisplayBalance(await erc20Contract.balanceOf(account));
     }
+
+    public async upOnly(flowerAddress: string) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return await contract.upOnly();
+    }
+
+    public async payFees(flowerAddress: string) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return await contract.payFees();
+    }
 }

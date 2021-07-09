@@ -45,7 +45,7 @@ color: ${({ theme }) => theme.text3};
   } 
 `
 
-enum CoverStatus {
+enum Status {
     None,
     Pending,
     Done
@@ -53,7 +53,9 @@ enum CoverStatus {
 
 export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
     const { account, library, chainId } = useWeb3React();
-    const [coverStaus, setCoverStaus] = useState<CoverStatus>(CoverStatus.None);
+    const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
+    const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);
+    const [payFeesStatus, setPayFeesStatus] = useState<Status>(Status.None);
     const [error, setError] = useState("");
     const [transactionHash, setTransactionHash] = useState<string>("");
     const { chain } = useContext(ControlCenterContext);
@@ -61,7 +63,7 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
     const [sellOpen, setSellOpen] = useState<boolean>(false);
 
     const cover = async () => {
-        setCoverStaus(CoverStatus.Pending);
+        setCoverStatus(Status.Pending);
         try {
             const service = new FlowerService(library, account!, chain);
             const txResponse = await service.letTheFlowersCoverTheEarth(flowerInfo.address);
@@ -70,11 +72,11 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
                 const receipt = await txResponse.wait()
                 if (receipt?.status === 1) {
                     setTransactionHash(receipt.transactionHash);
-                    setCoverStaus(CoverStatus.Done);                  
+                    setCoverStatus(Status.Done);                  
                 }
                 else {
                     setError("Transaction Failed");
-                    setCoverStaus(CoverStatus.None); 
+                    setCoverStatus(Status.None); 
                 }
             }
         }
@@ -84,8 +86,64 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
             if(errorMessage) {
                 setError(errorMessage);
             }
-            setCoverStaus(CoverStatus.None); 
+            setCoverStatus(Status.None); 
         }       
+    }
+
+    const upOnly = async () => {
+        setUpOnlyStatus(Status.Pending);
+        try {
+            const service = new FlowerService(library, account!, chain);
+            const txResponse = await service.upOnly(flowerInfo.address);
+
+            if (txResponse) {
+                const receipt = await txResponse.wait()
+                if (receipt?.status === 1) {
+                    setTransactionHash(receipt.transactionHash);
+                    setUpOnlyStatus(Status.Done);                  
+                }
+                else {
+                    setError("Transaction Failed");
+                    setUpOnlyStatus(Status.None); 
+                }
+            }
+        }
+        catch(e){
+            console.log(e)
+            const errorMessage = extractErrorMessage(e);
+            if(errorMessage) {
+                setError(errorMessage);
+            }
+            setUpOnlyStatus(Status.None); 
+        }
+    }
+
+    const payFees = async () => {
+        setPayFeesStatus(Status.Pending);
+        try {
+            const service = new FlowerService(library, account!, chain);
+            const txResponse = await service.payFees(flowerInfo.address);
+
+            if (txResponse) {
+                const receipt = await txResponse.wait()
+                if (receipt?.status === 1) {
+                    setTransactionHash(receipt.transactionHash);
+                    setPayFeesStatus(Status.Done);                  
+                }
+                else {
+                    setError("Transaction Failed");
+                    setPayFeesStatus(Status.None); 
+                }
+            }
+        }
+        catch(e){
+            console.log(e)
+            const errorMessage = extractErrorMessage(e);
+            if(errorMessage) {
+                setError(errorMessage);
+            }
+            setPayFeesStatus(Status.None); 
+        }
     }
 
     return (
@@ -93,8 +151,18 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
             <TransactionCompletedModal 
                 title={"Flowers Covered the Earth"} 
                 hash={transactionHash} 
-                isOpen={coverStaus === CoverStatus.Done} 
-                onDismiss={() => setCoverStaus(CoverStatus.None)} />
+                isOpen={coverStatus === Status.Done} 
+                onDismiss={() => setCoverStatus(Status.None)} />
+            <TransactionCompletedModal 
+                title={"Up Only Completed"}
+                hash={transactionHash} 
+                isOpen={upOnlyStatus === Status.Done}
+                onDismiss={() => setUpOnlyStatus(Status.None)} />
+            <TransactionCompletedModal 
+                title={"Fees paid"}
+                hash={transactionHash} 
+                isOpen={payFeesStatus === Status.Done}
+                onDismiss={() => setPayFeesStatus(Status.None)} />
             <Buy 
                 isOpen={buyOpen} 
                 onDismiss={() => setBuyOpen(false)} 
@@ -126,7 +194,15 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
                 <ButtonPrimaryGreen onClick={() => setBuyOpen(true)}>Buy</ButtonPrimaryGreen>
                 <ButtonPrimaryRed onClick={() => setSellOpen(true)}>Sell</ButtonPrimaryRed>
                 <ButtonPrimary onClick={cover}>
-                    {coverStaus === CoverStatus.Pending ? <PendingContent text={"Pending..."}/> : "Let Flowers Cover The Earth"}
+                    {coverStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Let Flowers Cover The Earth"}
+                </ButtonPrimary>
+            </ButtonRow>
+            <ButtonRow>
+                <ButtonPrimary onClick={upOnly}>
+                    {upOnlyStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Up Only"}
+                </ButtonPrimary>
+                <ButtonPrimary onClick={payFees}>
+                    {payFeesStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Pay Fees"}
                 </ButtonPrimary>
             </ButtonRow>
             {error ? <ErrorMessage error={error} /> : null}
