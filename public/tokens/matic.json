@@ -1,0 +1,34 @@
+[
+    {
+        "symbol": "upUSDT",
+        "address": "0xCb5f72d37685C3D5aD0bB5F982443BC8FcdF570E"
+    },    
+    {
+        "symbol": "WETH 1",
+        "address": "0x8cc8538d60901d19692F5ba22684732Bc28F54A3"
+    },
+    {
+        "symbol": "WETH 2",
+        "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
+    },
+    {
+        "symbol": "DAI 1",
+        "address": "0x84000b263080BC37D1DD73A29D92794A6CF1564e"
+    },
+    {
+        "symbol": "DAI 2",
+        "address": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"
+    },
+    {
+        "symbol": "USDC",
+        "address": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+    },
+    {
+        "symbol": "wMATIC",
+        "address": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
+    },
+    {
+        "symbol": "QUICK",
+        "address": "0x831753dd7087cac61ab5644b308642cc1c33dc13"
+    }
+]

@@ -1,9 +1,12 @@
+import { useWeb3React } from "@web3-react/core"
 import { darken } from "polished"
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
+import { useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import styled from "styled-components"
-import { pairedTokens } from "../../constants"
 import { ControlCenterContext } from "../../contexts/ControlCenterContext"
+import { TokenInfo } from "../../dtos/TokenInfo"
+import { GardenService } from "../../services/GardenService"
 
 const Wrapper = styled.div`
     display: grid;
@@ -45,11 +48,22 @@ const StyledNavLink = styled(NavLink).attrs({
   `
 
 export default function TokenList()
-{
-    const { chain } = useContext(ControlCenterContext)
+{   
+    const { account, library, chainId } = useWeb3React();
+    const { chain } = useContext(ControlCenterContext);
+    const [tokens, setTokens] = useState<TokenInfo[]>();
+
+    useEffect(()=>{
+      const getTokens = async () => {
+        const service = new GardenService(library, account!, chain);
+        setTokens(await service.getParentTokens());
+      }
+      getTokens();
+      
+    },[chainId, chain, library, account])
     return (
         <Wrapper>
-            {pairedTokens.get(chain)!.map(x => (<StyledNavLink key={x.address} exact={true} to={`/${x.address}`}>{x.symbol}</StyledNavLink>)) }
+            {tokens?.map(x => (<StyledNavLink key={x.address} exact={true} to={`/${x.address}`}>{x.symbol}</StyledNavLink>)) }
         </Wrapper>
     )
 }
