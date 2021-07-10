@@ -21,14 +21,20 @@ export class FlowerService {
         const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
        
         const count = parseInt(await contract.flowersOfPair(pairedAddress));
-        const flowers: FlowerInfo[] = [];
+
+        const flowerAddrsPromise = [];
+
         for (let i = 0; i < count; i++){
-            const flowerAddress = await contract.pairedFlowers(pairedAddress, i);
-            const info = await this.getInfo(pairedAddress, flowerAddress);
-            flowers.push(info);
+            flowerAddrsPromise.push(contract.pairedFlowers(pairedAddress, i));
         }
 
-        return flowers;
+        let flowersAddrs = await Promise.all((flowerAddrsPromise))
+        const flowersPromises = [];
+        for (let addr of flowersAddrs) {
+            flowersPromises.push(this.getInfo(pairedAddress, addr))
+        }
+
+        return Promise.all(flowersPromises);
     }
 
     private async getInfo(pairedAddress: string, flowerAddress: string) {
