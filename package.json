@@ -1,7 +1,7 @@
 {
-  "name": "control-center",
+  "name": "octolily",
   "version": "0.1.0",
-  "description": "Control Center",
+  "description": "Garden of Infinite Love",
   "private": true,
   "devDependencies": {
     "@ethersproject/experimental": "^5.0.5",
