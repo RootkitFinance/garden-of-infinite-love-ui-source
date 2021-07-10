@@ -19,16 +19,22 @@ export class FlowerService {
 
     public async getFlowers(pairedAddress: string){
         const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
-       
         const count = parseInt(await contract.flowersOfPair(pairedAddress));
-        const flowers: FlowerInfo[] = [];
+
+        const addressesPromises = [];
+
         for (let i = 0; i < count; i++){
-            const flowerAddress = await contract.pairedFlowers(pairedAddress, i);
-            const info = await this.getInfo(pairedAddress, flowerAddress);
-            flowers.push(info);
+            addressesPromises.push(contract.pairedFlowers(pairedAddress, i));
         }
 
-        return flowers;
+        let addresses = await Promise.all((addressesPromises))
+        
+        const flowersInfoPromises = [];
+        for (let addr of addresses) {
+            flowersInfoPromises.push(this.getInfo(pairedAddress, addr))
+        }
+
+        return Promise.all(flowersInfoPromises);
     }
 
     public async getFlower(flowerAddress: string){
