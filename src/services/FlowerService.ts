@@ -24,29 +24,51 @@ export class FlowerService {
         const flowers: FlowerInfo[] = [];
         for (let i = 0; i < count; i++){
             const flowerAddress = await contract.pairedFlowers(pairedAddress, i);
-            const info = await this.getInfo(pairedAddress, flowerAddress);
+            const data = await contract.flowers(flowerAddress);
+            const info = await this.getInfo(pairedAddress, flowerAddress, data);
             flowers.push(info);
         }
 
         return flowers;
     }
 
-    public async getFlower(flowerAddress: string){
-        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
-        const pairedAddress = await contract.pairedToken();
-        const balance = await this.getBalance(pairedAddress, flowerAddress);     
-        const price = getDisplayBalance(await contract.price(), 18, 18);
-        const totalSupply = getDisplayBalance(await contract.totalSupply());
-        return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance);
+    public async getParentFlower(pairedAddress: string){
+        const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);       
+        const count = parseInt(await contract.flowersOfPair(pairedAddress));
+        if (count === 0) { 
+            return undefined; 
+        }
+
+        const flowerAddress = await contract.pairedFlowers(pairedAddress, 0);
+        const data = await contract.flowers(flowerAddress);
+        const info = await this.getInfo(pairedAddress, flowerAddress, data);
+        return info;
     }
 
-    private async getInfo(pairedAddress: string, flowerAddress: string) {
+    public async getFlower(flowerAddress: string){
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        const gardenContract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
+        const data = await gardenContract.flowers(flowerAddress);
+        const balance = await this.getBalance(data.pairedAddress, flowerAddress);     
+        const price = getDisplayBalance(await contract.price(), 18, 18);
+        const totalSupply = getDisplayBalance(await contract.totalSupply());
+        const petals = await contract.petalCount();
+        const burnRate = parseFloat(data.burnRate.toString())/100;
+        const upPercent = parseFloat(data.upPercent.toString())/100;
+
+        return new FlowerInfo(flowerAddress, data.pairedAddress, price, totalSupply, balance, burnRate.toString(), upPercent.toString(), data.upDelay.toString(), parseInt(petals.toString()));
+    }
+
+    private async getInfo(pairedAddress: string, flowerAddress: string, data: any) {
         const balance = await this.getBalance(pairedAddress, flowerAddress);
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         const price = getDisplayBalance(await contract.price(), 18, 18);
         const totalSupply = getDisplayBalance(await contract.totalSupply());
+        const petals = await contract.petalCount();
+        const burnRate = parseFloat(data.burnRate.toString())/100;
+        const upPercent = parseFloat(data.upPercent.toString())/100;
 
-        return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance);
+        return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance, burnRate.toString(), upPercent.toString(), data.upDelay.toString(), parseInt(petals.toString()));
     }
 
     public async buy(flowerAddress: string, value: string) {
@@ -97,5 +119,17 @@ export class FlowerService {
     public async claimOwnership(flowerAddress: string) {
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         return await contract.claimOwnership();
+    }
+
+    public async getPetals(flowerAddress: string, petalsCount: number) {
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        const petals: FlowerInfo[] = [];
+        for(let i = 1; i <= petalsCount; i++){
+            const petalAddress = await contract.theEightPetals(i);
+            const petal = await this.getFlower(petalAddress);
+            petals.push(petal);
+        }
+        
+        return petals;
     }
 }

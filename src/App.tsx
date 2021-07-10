@@ -50,8 +50,8 @@ export const App = () => {
                 <ToastProvider>
                   <Switch>
                     <Route exact strict path="/" component={Home} />    
-                    <Route exact strict path="/paired/:paired" component={PairedFlowers} />
-                    <Route exact strict path="/flower/:flower" component={Flowers} />    
+                    <Route exact strict path="/paired/:address" component={PairedFlowers} />
+                    <Route exact strict path="/flower/:address" component={Flowers} />    
                   </Switch>
                   </ToastProvider>
                 </Web3ReactManager>
