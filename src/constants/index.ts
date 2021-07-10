@@ -1,7 +1,5 @@
 import { AbstractConnector } from "@web3-react/abstract-connector"
-
 import { injected, walletconnect, walletlink } from "../connectors"
-import { TokenInfo } from "../dtos/TokenInfo"
 
 export const NETWORK_LABELS: { [chainId in number]?: string } = {
   1: "Ethereum",  
