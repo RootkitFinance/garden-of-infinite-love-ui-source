@@ -18,8 +18,8 @@ const Wrapper = styled.div`
 const activeClassName = 'ACTIVE'
 
 const StyledNavLink = styled(NavLink).attrs({
-    activeClassName
-  })`
+  activeClassName
+})`
     ${({ theme }) => theme.flexRowNoWrap}
     align-items: left;
     outline: none;
@@ -47,23 +47,22 @@ const StyledNavLink = styled(NavLink).attrs({
     }
   `
 
-export default function TokenList()
-{   
-    const { account, library, chainId } = useWeb3React();
-    const { chain } = useContext(ControlCenterContext);
-    const [tokens, setTokens] = useState<TokenInfo[]>();
+export default function TokenList() {
+  const { account, library, chainId } = useWeb3React();
+  const { chain } = useContext(ControlCenterContext);
+  const [tokens, setTokens] = useState<TokenInfo[]>();
 
-    useEffect(()=>{
-      const getTokens = async () => {
-        const service = new GardenService(library, account!, chain);
-        setTokens(await service.getParentTokens());
-      }
-      getTokens();
-      
-    },[chainId, chain, library, account])
-    return (
-        <Wrapper>
-            {tokens?.map(x => (<StyledNavLink key={x.address} exact={true} to={`/${x.address}`}>{x.symbol}</StyledNavLink>)) }
-        </Wrapper>
-    )
+  useEffect(() => {
+    const getTokens = async () => {
+      const service = new GardenService(library, account!, chain);
+      setTokens(await service.getParentTokens());
+    }
+    getTokens();
+
+  }, [chainId, chain, library, account])
+  return (
+    <Wrapper>
+      {tokens?.map(x => (<StyledNavLink key={x.address} exact={true} to={`/paired/${x.address}`}>{x.symbol}</StyledNavLink>))}
+    </Wrapper>
+  )
 }

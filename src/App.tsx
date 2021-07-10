@@ -7,6 +7,7 @@ import { Switch, Route, HashRouter } from 'react-router-dom';
 import ToastProvider from './components/ToastProvider';
 import TransactionsProvider from './contexts/Transactions/TransactionsProvider';
 import { ControlCenterProvider } from './contexts/ControlCenterContext';
+import { PairedFlowers } from './pages/PairedFlowers';
 import { Flowers } from './pages/Flowers';
 
 const AppWrapper = styled.div`
@@ -49,7 +50,8 @@ export const App = () => {
                 <ToastProvider>
                   <Switch>
                     <Route exact strict path="/" component={Home} />    
-                    <Route exact strict path="/:paired" component={Flowers} />            
+                    <Route exact strict path="/paired/:paired" component={PairedFlowers} />
+                    <Route exact strict path="/flower/:flower" component={Flowers} />    
                   </Switch>
                   </ToastProvider>
                 </Web3ReactManager>

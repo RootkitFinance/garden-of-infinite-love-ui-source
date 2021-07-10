@@ -40,8 +40,8 @@ const FlowersList = styled.div`
     padding: 1em 0.25em 0.25em 0.25em;
 `
 
-export const Flowers = () => {
-    const { flower } = useParams<{ flower: string }>();
+export const PairedFlowers = () => {
+    const { paired } = useParams<{ paired: string }>();
     const { account, library, chainId } = useWeb3React();
     const [flowers, setFlowers] = useState<FlowerInfo[]>();
     const [loading, setLoading] = useState<boolean>(true);
@@ -49,11 +49,11 @@ export const Flowers = () => {
 
     useEffect(() => {
 
-        const getBalances = async () => {           
-            if (library && account && chainId && supportedChain(chainId!, chain) && isAddress(flower)) {
+        const getBalances = async () => {
+            if (library && account && chainId && supportedChain(chainId!, chain) && isAddress(paired)){
                 const service = new FlowerService(library, account!, chain)
-                setLoading(true);
-                setFlowers([await service.getFlower(flower)]);
+                setLoading(true) 
+                setFlowers(await service.getFlowers(paired))
                 setLoading(false)
             }
         }

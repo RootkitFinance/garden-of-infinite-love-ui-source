@@ -31,6 +31,15 @@ export class FlowerService {
         return flowers;
     }
 
+    public async getFlower(flowerAddress: string){
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        const pairedAddress = await contract.pairedToken();
+        const balance = await this.getBalance(pairedAddress, flowerAddress);     
+        const price = getDisplayBalance(await contract.price(), 18, 18);
+        const totalSupply = getDisplayBalance(await contract.totalSupply());
+        return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance);
+    }
+
     private async getInfo(pairedAddress: string, flowerAddress: string) {
         const balance = await this.getBalance(pairedAddress, flowerAddress);
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
