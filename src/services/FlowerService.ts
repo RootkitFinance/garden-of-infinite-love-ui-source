@@ -51,24 +51,54 @@ export class FlowerService {
         const data = await gardenContract.flowers(flowerAddress);
         const balance = await this.getBalance(data.pairedAddress, flowerAddress);     
         const price = getDisplayBalance(await contract.price(), 18, 18);
-        const totalSupply = getDisplayBalance(await contract.totalSupply());
+        const totalSupply = (await contract.totalSupply()).toString();
         const petals = await contract.petalCount();
         const burnRate = parseFloat(data.burnRate.toString())/100;
         const upPercent = parseFloat(data.upPercent.toString())/100;
+        const owner = await contract.owner();
+        const owner2 = await contract.owner2();
+        const owner3 = await contract.owner3();
 
-        return new FlowerInfo(flowerAddress, data.pairedAddress, price, totalSupply, balance, burnRate.toString(), upPercent.toString(), data.upDelay.toString(), parseInt(petals.toString()));
+        return new FlowerInfo(
+            flowerAddress, 
+            data.pairedAddress,
+            price, 
+            totalSupply, 
+            balance, 
+            burnRate.toString(), 
+            upPercent.toString(), 
+            data.upDelay.toString(), 
+            parseInt(petals.toString()),
+            owner, 
+            owner2, 
+            owner3);
     }
 
     private async getInfo(pairedAddress: string, flowerAddress: string, data: any) {
         const balance = await this.getBalance(pairedAddress, flowerAddress);
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         const price = getDisplayBalance(await contract.price(), 18, 18);
-        const totalSupply = getDisplayBalance(await contract.totalSupply());
+        const totalSupply = (await contract.totalSupply()).toString();
         const petals = await contract.petalCount();
         const burnRate = parseFloat(data.burnRate.toString())/100;
         const upPercent = parseFloat(data.upPercent.toString())/100;
+        const owner = await contract.owner();
+        const owner2 = await contract.owner2();
+        const owner3 = await contract.owner3();
 
-        return new FlowerInfo(flowerAddress, pairedAddress, price, totalSupply, balance, burnRate.toString(), upPercent.toString(), data.upDelay.toString(), parseInt(petals.toString()));
+        return new FlowerInfo(
+            flowerAddress, 
+            pairedAddress, 
+            price, 
+            totalSupply, 
+            balance, 
+            burnRate.toString(), 
+            upPercent.toString(), 
+            data.upDelay.toString(), 
+            parseInt(petals.toString()),
+            owner, 
+            owner2, 
+            owner3);
     }
 
     public async buy(flowerAddress: string, value: string) {

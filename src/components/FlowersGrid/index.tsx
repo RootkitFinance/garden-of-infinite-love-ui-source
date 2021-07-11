@@ -19,12 +19,13 @@ const Wrapper = styled.div`
 
 const Header = styled.div`
     display: grid;
-    grid-gap: 1em;
-    grid-template-columns: 8em  12em  12em  10em 5em 3em 5em 3em;
+    grid-gap: 1.5em;
+    grid-template-columns: 8em 12em 15em 10em 5em 3em 5em 3em 8em 8em 8em;
     font-size: 0.825rem;
-    color: ${({ theme }) => theme.text3};
-    border-bottom: 1px solid ${({ theme }) => theme.text5};
+    color: ${({ theme }) => theme.text2};
+    border-bottom: 1px solid ${({ theme }) => theme.text4};
     padding-bottom: 0.5em;
+    font-weight: 500;
 `
 
 const NumericColumn = styled.span`
@@ -55,6 +56,9 @@ export default function FlowersGrid({flower}:{flower:FlowerInfo| undefined}) {
             <NumericColumn>Up %</NumericColumn>
             <NumericColumn>Up Delay</NumericColumn>
             <NumericColumn>Petals</NumericColumn>
+            <span>Owner</span>
+            <span>Owner 2</span>
+            <span>Owner 3</span>
         </Header>
         {flowers?.map(x => <FlowerRow key={x.address} flowerInfo={x} addPetals={addPetals}/>)}
         </Wrapper>

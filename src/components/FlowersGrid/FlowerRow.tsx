@@ -22,8 +22,8 @@ const Wrapper = styled.div`
 
 const TextRow = styled.div`
     display: grid;
-    grid-gap: 1em;
-    grid-template-columns:8em  12em  12em  10em 5em 3em 5em 3em;
+    grid-gap: 1.5em;
+    grid-template-columns: 8em 12em 15em 10em 5em 3em 5em 3em 8em 8em 8em;
     font-size: 0.825rem;
     color: ${({ theme }) => theme.text3};
 `
@@ -257,6 +257,15 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPe
                 <NumericColumn>{flowerInfo.upPercent}</NumericColumn>
                 <NumericColumn>{flowerInfo.upDelay}</NumericColumn>
                 <NumericColumn>{flowerInfo.petalCount}</NumericColumn>
+                <AddressLink href={getEtherscanLink(chainId!, flowerInfo.owner, 'address')}>
+                    <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.owner)}</span>
+                </AddressLink>
+                <AddressLink href={getEtherscanLink(chainId!, flowerInfo.owner2, 'address')}>
+                    <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.owner2)}</span>
+                </AddressLink>
+                <AddressLink href={getEtherscanLink(chainId!, flowerInfo.owner3, 'address')}>
+                    <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.owner3)}</span>
+                </AddressLink>
             </TextRow>            
             <ButtonRow>
                 <ButtonPrimaryGreen onClick={() => setBuyOpen(true)}>Buy</ButtonPrimaryGreen>

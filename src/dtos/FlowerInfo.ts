@@ -8,8 +8,23 @@ export class FlowerInfo {
     public upPercent: string;
     public upDelay: string;
     public petalCount: number;
+    public owner: string;
+    public owner2: string;
+    public owner3: string;
 
-    constructor(address: string, pairedAddress: string, price: string, totalSupply: string, pairedBalance: string, burnRate: string, upPercent: string, upDelay: string, petalCount: number) {        
+    constructor(
+        address: string, 
+        pairedAddress: string, 
+        price: string, 
+        totalSupply: string, 
+        pairedBalance: string, 
+        burnRate: string, 
+        upPercent: string, 
+        upDelay: string, 
+        petalCount: number, 
+        owner: string, 
+        owner2: string, 
+        owner3: string) {    
         this.address = address;
         this.pairedAddress = pairedAddress;
         this.price = price;
@@ -19,5 +34,8 @@ export class FlowerInfo {
         this.upPercent = upPercent;
         this.upDelay = upDelay;
         this.petalCount = petalCount;
+        this.owner = owner;
+        this.owner2 = owner2;
+        this.owner3 = owner3;
     }
 }
