@@ -36,7 +36,7 @@ export const PairedFlowers = () => {
 
         getBalances();
 
-    }, [library, account, chainId, chain])
+    }, [library, account, chainId, chain, address])
 
     return (
         account && library && chainId ?

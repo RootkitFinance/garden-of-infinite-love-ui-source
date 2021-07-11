@@ -39,7 +39,7 @@ export default function FlowersGrid({flower}:{flower:FlowerInfo| undefined}) {
         if(flower){
             setFlowers([flower!]);
         }
-    },[])
+    },[flower])
 
     const addPetals = (petals: FlowerInfo[]) =>{
         setFlowers(flowers.concat(petals));
