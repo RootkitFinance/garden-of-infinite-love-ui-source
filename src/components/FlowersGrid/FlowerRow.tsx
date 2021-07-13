@@ -14,10 +14,14 @@ import Buy from "../Buy";
 import Sell from "../Sell";
 import { useEffect } from "react";
 import TransferOwnership from "../TransferOwnership";
+import { useHistory, useParams } from "react-router-dom";
 
 const Wrapper = styled.div`
     padding: 1em 0;
     border-bottom: 1px solid ${({ theme }) => theme.text3};
+    :hover {
+        background-color:${({ theme }) => theme.bg2};
+    } 
 `
 
 const TextRow = styled.div`
@@ -56,6 +60,7 @@ enum Status {
 
 export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPetals: (petals: FlowerInfo[]) => void}) => {
     const { account, library, chainId } = useWeb3React();
+    const { address } = useParams<{ address: string }>();
     const [loadingPetals, setLoadingPetals] = useState<boolean>(false);
     const [petalsLoaded, setPetalsLoaded] = useState<boolean>(flowerInfo.petalsLoaded);
     const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
@@ -70,6 +75,7 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPe
     const [transferOwnershipOpen, setTransferOwnershipOpen] = useState<boolean>(false);
     const [isOwner, setIsOwner] = useState<boolean>(false);
     const [isPendingOwner, setIsPendingOwner] = useState<boolean>(false);
+    let history = useHistory();
 
     useEffect(() => {
         const getOwner = async () => {
@@ -216,8 +222,14 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPe
         addPetals(petals);
     }
 
+    const openFlower = ()=>{
+        if (address !== flowerInfo.address) {
+            history.push(`/flower/${flowerInfo.address}`);
+        }       
+    }
+
     return (
-        <Wrapper>
+        <Wrapper onClick={openFlower}>
             <TransactionCompletedModal 
                 title={"Flowers Covered the Earth"} 
                 hash={transactionHash} 
