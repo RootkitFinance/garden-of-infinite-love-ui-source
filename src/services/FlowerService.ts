@@ -49,7 +49,7 @@ export class FlowerService {
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         const gardenContract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
         const data = await gardenContract.flowers(flowerAddress);
-        const balance = await this.getBalance(data.pairedAddress, flowerAddress);     
+        const balance = getDisplayBalance(await this.getBalance(data.pairedAddress, flowerAddress));     
         const price = getDisplayBalance(await contract.price(), 18, 18);
         const totalSupply = (await contract.totalSupply()).toString();
         const petals = await contract.petalCount();
@@ -75,7 +75,7 @@ export class FlowerService {
     }
 
     private async getInfo(pairedAddress: string, flowerAddress: string, data: any) {
-        const balance = await this.getBalance(pairedAddress, flowerAddress);
+        const balance = getDisplayBalance(await this.getBalance(pairedAddress, flowerAddress));
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         const price = getDisplayBalance(await contract.price(), 18, 18);
         const totalSupply = (await contract.totalSupply()).toString();
@@ -118,7 +118,7 @@ export class FlowerService {
     
     public async getBalance(tokenAddress: string, account: string) {
         const erc20Contract = new Contract(tokenAddress, erc20abi, this.signer);
-        return getDisplayBalance(await erc20Contract.balanceOf(account));
+        return await erc20Contract.balanceOf(account);
     }
 
     public async upOnly(flowerAddress: string) {

@@ -5,11 +5,12 @@ import ActionModal from "../ActionModal"
 import { ControlCenterContext } from "../../contexts/ControlCenterContext";
 import { supportedChain } from "../../utils";
 import { FlowerService } from "../../services/FlowerService";
+import { getBalanceNumber, getDisplayBalance, getFullDisplayBalance } from "../../utils/formatBalance"
 
 const Sell = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: string, isOpen: boolean, onDismiss: () => void }) => {
-    const { account, library, chainId } = useWeb3React()
-    const [value, setValue] = useState<string>("")    
-    const [balance, setBalance] = useState<string>("")
+    const { account, library, chainId } = useWeb3React();
+    const [value, setValue] = useState<string>("");    
+    const [balance, setBalance] = useState<any>();
     const { chain } = useContext(ControlCenterContext);
 
     useEffect(() => {
@@ -35,11 +36,12 @@ const Sell = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: string, is
         <ActionModal isOpen={isOpen} onDismiss={close} action={sell} title={"Sell"}>
             <CurrencyInput
                 value={value}
-                balance={balance}
+                balance={balance ? getDisplayBalance(balance) : "0"}
+                numericBalance={balance ? getBalanceNumber(balance) : 0}
                 onSubmit={sell}
                 ticker={""}
                 label={"Amount to spend"}
-                onMax={() => setValue(balance.toString())}
+                onMax={() => setValue(getFullDisplayBalance(balance))}
                 showMaxButton={true}
                 onUserInput={(x) => setValue(x)}
                 id={"amountToSpendInput"} />

@@ -11,6 +11,7 @@ import { ControlCenterContext } from "../../contexts/ControlCenterContext";
 import { supportedChain } from "../../utils"
 import CurrencyInput from "../CurrencyInput"
 import { TokenService } from "../../services/TokenService"
+import { getBalanceNumber, getDisplayBalance, getFullDisplayBalance } from "../../utils/formatBalance"
 
 const Wrapper = styled.div`
     display: grid;
@@ -64,7 +65,7 @@ const Buy = (
     const { account, library, chainId } = useWeb3React();
   
     const [value, setValue] = useState<string>("")    
-    const [balance, setBalance] = useState<string>("")
+    const [balance, setBalance] = useState<any>()
     const { chain } = useContext(ControlCenterContext);
 
     useEffect(() => {
@@ -179,11 +180,12 @@ const Buy = (
                 </Header>
                 <CurrencyInput
                     value={value}
-                    balance={balance}
+                    balance={balance ? getDisplayBalance(balance) : "0"}
+                    numericBalance={balance ? getBalanceNumber(balance) : 0}
                     onSubmit={buy}
                     ticker={""}
                     label={"Amount to spend"}
-                    onMax={() => setValue(balance.toString())}
+                    onMax={() => setValue(getFullDisplayBalance(balance))}
                     showMaxButton={true}
                     onUserInput={(x) => setValue(x)}
                     id={"amountToSpendInput"} />

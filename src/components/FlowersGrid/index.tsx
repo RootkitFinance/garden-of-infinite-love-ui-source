@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const Header = styled.div`
     display: grid;
     grid-gap: 1.5em;
-    grid-template-columns: 8em 12em 15em 10em 5em 3em 5em 3em 8em 8em 8em;
+    grid-template-columns: 8em 12em 20em 10em 5em 3em 5em 3em 8em 8em 8em;
     font-size: 0.825rem;
     color: ${({ theme }) => theme.text2};
     border-bottom: 1px solid ${({ theme }) => theme.text4};

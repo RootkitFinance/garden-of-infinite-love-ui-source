@@ -87,6 +87,7 @@ interface CurrencyInputProps {
   hideInput?: boolean
   disabled?: boolean
   balance?: string
+  numericBalance: number
   balanceLabel?: string
   ticker: string
   id: string
@@ -103,13 +104,13 @@ export default function CurrencyInput({
   hideInput = false,
   disabled = false,
   balance,
+  numericBalance,
   balanceLabel = 'Balance',
   ticker,
   id
 }: CurrencyInputProps) {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
-  const numericBalance = balance ? parseFloat(balance.replace(",","")) : 0
 
   return (
     <InputPanel id={id}>
