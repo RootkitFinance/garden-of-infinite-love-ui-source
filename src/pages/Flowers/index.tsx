@@ -43,7 +43,7 @@ export const Flowers = () => {
         <Wrapper>
              {loading 
                 ? <Loader/> 
-                : <FlowersGrid flower={flower}/>}
+                : <FlowersGrid data={flower ? [flower] :[]}/>}
         </Wrapper>
         : null
     )

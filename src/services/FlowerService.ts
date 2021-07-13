@@ -18,21 +18,37 @@ export class FlowerService {
     }
 
     public async getFlowers(pairedAddress: string){
-        const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
-       
-        const count = parseInt(await contract.flowersOfPair(pairedAddress));
         const flowers: FlowerInfo[] = [];
-        for (let i = 0; i < count; i++){
-            const flowerAddress = await contract.pairedFlowers(pairedAddress, i);
-            const data = await contract.flowers(flowerAddress);
-            const info = await this.getInfo(pairedAddress, flowerAddress, data);
-            flowers.push(info);
+        const parent = (await this.getParentFlower(pairedAddress))!;
+        parent.petalsLoaded = true;
+        flowers.push(parent!);
+        const petals = await this.getPetals(parent!.address, parent!.petalCount);       
+        
+        for (let i = 0; i < petals.length; i++){
+            const petal = petals[i];
+            petal.petalsLoaded = true;
+            flowers.push(petal);
+            const children = await this.getPetals(petal.address, petal.petalCount);
+            for(let j = 0; j < children.length; j++){
+                flowers.push(children[j]!);
+            }
+            
         }
-
+        console.log(JSON.stringify(flowers));
         return flowers;
     }
 
-    public async getParentFlower(pairedAddress: string){
+    public async deserializeFlowers(pairedAddress: string) {
+        const response = await fetch(`flowers/${pairedAddress}.json`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+        });
+        return await response.json();
+    }
+
+    public async getParentFlower(pairedAddress: string) {
         const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);       
         const count = parseInt(await contract.flowersOfPair(pairedAddress));
         if (count === 0) { 

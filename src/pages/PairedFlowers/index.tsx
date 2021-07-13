@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components"
 import FlowersGrid from "../../components/FlowersGrid";
 import Loader from "../../components/Loader";
+import { serializedPaired } from "../../constants";
 import { ControlCenterContext } from "../../contexts/ControlCenterContext";
 import { FlowerInfo } from "../../dtos/FlowerInfo";
 import { FlowerService } from "../../services/FlowerService";
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
 export const PairedFlowers = () => {
     const { address } = useParams<{ address: string }>();
     const { account, library, chainId } = useWeb3React();
-    const [flower, setFlower] = useState<FlowerInfo|undefined>();
+    const [flowers, setFlowers] = useState<FlowerInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const { chain } = useContext(ControlCenterContext);
 
@@ -29,8 +30,17 @@ export const PairedFlowers = () => {
             if (library && account && chainId && supportedChain(chainId!, chain) && isAddress(address)){
                 const service = new FlowerService(library, account!, chain)
                 setLoading(true) 
-                setFlower(await service.getParentFlower(address))
-                setLoading(false)
+                const lowerCaseAddress = address.toLowerCase();
+                if (serializedPaired.has(lowerCaseAddress)){
+                    setFlowers(await service.deserializeFlowers(lowerCaseAddress));
+                }
+                else {
+                    const flower = await service.getParentFlower(address);
+                    if (flower){
+                        setFlowers([flower]);
+                    }
+                }                
+                setLoading(false);
             }
         }
 
@@ -43,7 +53,7 @@ export const PairedFlowers = () => {
         <Wrapper>
              {loading 
                 ? <Loader/> 
-                : <FlowersGrid flower={flower}/>}
+                : <FlowersGrid data={flowers}/>}
         </Wrapper>
         : null      
     )

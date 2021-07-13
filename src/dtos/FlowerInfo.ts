@@ -11,6 +11,7 @@ export class FlowerInfo {
     public owner: string;
     public owner2: string;
     public owner3: string;
+    public petalsLoaded: boolean;
 
     constructor(
         address: string, 
@@ -37,5 +38,6 @@ export class FlowerInfo {
         this.owner = owner;
         this.owner2 = owner2;
         this.owner3 = owner3;
+        this.petalsLoaded = false;
     }
 }

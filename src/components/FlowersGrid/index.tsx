@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { useEffect } from "react"
 import styled from "styled-components"
 import { FlowerInfo } from "../../dtos/FlowerInfo"
 import { FlowerRow } from "./FlowerRow"
@@ -23,7 +22,7 @@ const Header = styled.div`
     grid-template-columns: 8em 12em 20em 10em 5em 3em 5em 3em 8em 8em 8em;
     font-size: 0.825rem;
     color: ${({ theme }) => theme.text2};
-    border-bottom: 1px solid ${({ theme }) => theme.text4};
+    border-bottom: 1px solid ${({ theme }) => theme.text3};
     padding-bottom: 0.5em;
     font-weight: 500;
 `
@@ -32,14 +31,8 @@ const NumericColumn = styled.span`
     text-align:right;
 `
 
-export default function FlowersGrid({flower}:{flower:FlowerInfo| undefined}) {
-    const [flowers, setFlowers] = useState<FlowerInfo[]>([]);
-
-    useEffect(() => {
-        if(flower){
-            setFlowers([flower!]);
-        }
-    },[flower])
+export default function FlowersGrid({data}:{data:FlowerInfo[]}) {
+    const [flowers, setFlowers] = useState<FlowerInfo[]>(data);
 
     const addPetals = (petals: FlowerInfo[]) =>{
         setFlowers(flowers.concat(petals));

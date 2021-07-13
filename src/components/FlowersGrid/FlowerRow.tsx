@@ -17,7 +17,7 @@ import TransferOwnership from "../TransferOwnership";
 
 const Wrapper = styled.div`
     padding: 1em 0;
-    border-bottom: 1px solid ${({ theme }) => theme.text5};
+    border-bottom: 1px solid ${({ theme }) => theme.text3};
 `
 
 const TextRow = styled.div`
@@ -36,12 +36,12 @@ const ButtonRow = styled.div`
 `
 
 const AddressLink = styled(ExternalLink)` 
-color: ${({ theme }) => theme.text3}; 
-  font-family: monospace;
-  display: flex;
-  :hover {
-    color: ${({ theme }) => theme.text2};
-  } 
+    color: ${({ theme }) => theme.text3}; 
+    font-family: monospace;
+     display: flex;
+    :hover {
+        color: ${({ theme }) => theme.text2};
+    } 
 `
 
 const NumericColumn = styled.span`
@@ -57,7 +57,7 @@ enum Status {
 export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPetals: (petals: FlowerInfo[]) => void}) => {
     const { account, library, chainId } = useWeb3React();
     const [loadingPetals, setLoadingPetals] = useState<boolean>(false);
-    const [petalsLoaded, setPetalsLoaded] = useState<boolean>(false);
+    const [petalsLoaded, setPetalsLoaded] = useState<boolean>(flowerInfo.petalsLoaded);
     const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
     const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);
     const [payFeesStatus, setPayFeesStatus] = useState<Status>(Status.None);
