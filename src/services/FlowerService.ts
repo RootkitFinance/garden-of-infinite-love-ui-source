@@ -61,13 +61,29 @@ export class FlowerService {
         return info;
     }
 
+    public async getPrice(flowerAddress: string){
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return getDisplayBalance(await contract.price(), 18, 8);
+    }
+
+    public async getTotalSupply(flowerAddress: string){
+        const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
+        return getDisplayBalance(await contract.totalSupply(), 18, 0);
+    }
+
+    public async getPairedBalance(flowerAddress: string){
+        const gardenContract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
+        const data = await gardenContract.flowers(flowerAddress);
+        return getDisplayBalance(await this.getBalance(data.pairedAddress, flowerAddress));
+    }
+
     public async getFlower(flowerAddress: string){
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
         const gardenContract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);
         const data = await gardenContract.flowers(flowerAddress);
         const balance = getDisplayBalance(await this.getBalance(data.pairedAddress, flowerAddress));     
-        const price = getDisplayBalance(await contract.price(), 18, 18);
-        const totalSupply = (await contract.totalSupply()).toString();
+        const price = getDisplayBalance(await contract.price(), 18, 8);
+        const totalSupply = getDisplayBalance(await contract.totalSupply(), 18, 0);
         const petals = await contract.petalCount();
         const burnRate = parseFloat(data.burnRate.toString())/100;
         const upPercent = parseFloat(data.upPercent.toString())/100;
@@ -93,8 +109,8 @@ export class FlowerService {
     private async getInfo(pairedAddress: string, flowerAddress: string, data: any) {
         const balance = getDisplayBalance(await this.getBalance(pairedAddress, flowerAddress));
         const contract = new Contract(flowerAddress, octalilyAbi, this.signer);
-        const price = getDisplayBalance(await contract.price(), 18, 18);
-        const totalSupply = (await contract.totalSupply()).toString();
+        const price = getDisplayBalance(await contract.price(), 18, 8);
+        const totalSupply = getDisplayBalance(await contract.totalSupply(), 18, 0);
         const petals = await contract.petalCount();
         const burnRate = parseFloat(data.burnRate.toString())/100;
         const upPercent = parseFloat(data.upPercent.toString())/100;

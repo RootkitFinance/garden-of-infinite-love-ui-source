@@ -2,7 +2,7 @@
     {
         "address": "0x22C7e1A7f4b0660fC185516b2c72Db7C9ca365D5",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.9",
@@ -17,13 +17,13 @@
     {
         "address": "0x15c24ee65693545eaBd299460fda9B746372915f",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "5.74",
         "upPercent": "3",
         "upDelay": "517",
-        "petalCount": 3,
+        "petalCount": 5,
         "owner": "0x804CC8D469483d202c69752ce0304F71ae14ABdf",
         "owner2": "0x804CC8D469483d202c69752ce0304F71ae14ABdf",
         "owner3": "0x804CC8D469483d202c69752ce0304F71ae14ABdf",
@@ -32,7 +32,7 @@
     {
         "address": "0x1eea7Bf8503cC896bBC71ab0980f677Fcc5C0655",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.58",
@@ -47,7 +47,7 @@
     {
         "address": "0x20BbCF64E7Ebf9c156c34BcCA702B53156C292F1",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.16",
@@ -62,7 +62,7 @@
     {
         "address": "0x643ADaDEF1A82c5C33d3bf999F34579c68f12c21",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "4.63",
@@ -75,10 +75,40 @@
         "petalsLoaded": false
     },
     {
+        "address": "0x2fA844Cd9aA0D13Dd3144f913F0d333fbC9265c8",
+        "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        "price": "0.00000069",
+        "totalSupply": "0",
+        "pairedBalance": "0.0000",
+        "burnRate": "7.92",
+        "upPercent": "5",
+        "upDelay": "678",
+        "petalCount": 0,
+        "owner": "0xB8A40d97a5E5E2353bD379C090a76714EE609781",
+        "owner2": "0xB8A40d97a5E5E2353bD379C090a76714EE609781",
+        "owner3": "0xB8A40d97a5E5E2353bD379C090a76714EE609781",
+        "petalsLoaded": false
+    },
+    {
+        "address": "0x3fBAF63DDE801F649312CEA9C335aDD9A09DE00c",
+        "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        "price": "0.00000069",
+        "totalSupply": "0",
+        "pairedBalance": "0.0000",
+        "burnRate": "5.75",
+        "upPercent": "4",
+        "upDelay": "461",
+        "petalCount": 0,
+        "owner": "0x2F4BAaF0cC5d543d7f8DC4059369f8F9A0a21409",
+        "owner2": "0x2F4BAaF0cC5d543d7f8DC4059369f8F9A0a21409",
+        "owner3": "0x2F4BAaF0cC5d543d7f8DC4059369f8F9A0a21409",
+        "petalsLoaded": false
+    },
+    {
         "address": "0xD67FE72F1E1D3Ed675509A3f4D5e47f3dC2699C0",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
-        "totalSupply": "402800869565620192174",
+        "price": "0.00000069",
+        "totalSupply": "402",
         "pairedBalance": "0.0003",
         "burnRate": "6.42",
         "upPercent": "5.31",
@@ -92,7 +122,7 @@
     {
         "address": "0x68e5092c2e4B8252D45603AE745414027A4d713E",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.03",
@@ -107,7 +137,7 @@
     {
         "address": "0x78e03070973d8bb86a6F6FE6A4d383f1F1a88aFf",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.59",
@@ -122,13 +152,13 @@
     {
         "address": "0x159CCF9481888F039AD09841495C9E20CAc3bbf0",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "9.81",
         "upPercent": "5.2",
         "upDelay": "867",
-        "petalCount": 0,
+        "petalCount": 1,
         "owner": "0x804CC8D469483d202c69752ce0304F71ae14ABdf",
         "owner2": "0x2FFc5b0a603cf903648F9617B5205a91abCaE72D",
         "owner3": "0x0784B3DD82003C054dAb079828E668c330bDd973",
@@ -137,7 +167,7 @@
     {
         "address": "0x9da0679E8e7B1cc2ADfB39c68c47165b8Baaf657",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "9.2",
@@ -152,7 +182,7 @@
     {
         "address": "0x516Bd361E46d410eb1F206Bd5af789F7d4B1ceaf",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "9.8",
@@ -167,13 +197,13 @@
     {
         "address": "0x8d0b38c73033D55d45e3bbD68A56570F4AAe8a4F",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.76",
         "upPercent": "7.65",
         "upDelay": "762",
-        "petalCount": 1,
+        "petalCount": 3,
         "owner": "0xcC38Ec4a91d774425a9bAd3ccBc3a54342B6b0C7",
         "owner2": "0xa9C09885530981c950ed52aA599A3616569075A8",
         "owner3": "0x3581d0FBC337F520Ff01DB5b69eEA571777A5753",
@@ -182,7 +212,7 @@
     {
         "address": "0xbacbeB278Fc87F32974c24a143ff68eD484ef6FE",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.58",
@@ -197,7 +227,7 @@
     {
         "address": "0xd84baec6a045DB9f72D0cB9cf97714305CF08D40",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.35",
@@ -212,7 +242,7 @@
     {
         "address": "0xEdd162f3DDcf50BaaF8DD6Cd8c2c679789A5B768",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.86",
@@ -227,7 +257,7 @@
     {
         "address": "0x7D1DF6Ed3A7E2950CFC23bE3311301E991B813bE",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.93",
@@ -242,7 +272,7 @@
     {
         "address": "0xb0085BadF3412Efe15884B93705ee2Ad36eC43fC",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.96",
@@ -257,7 +287,7 @@
     {
         "address": "0xBDAd30BE35a87e51f8E7e25A67718fc5C5561A8b",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.97",
@@ -272,7 +302,7 @@
     {
         "address": "0x82C27a48380979115Ef283373BC64f586b66a898",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.97",
@@ -287,7 +317,7 @@
     {
         "address": "0x1C1aB688DeceFAd10AD98F0100E83d838f9a8a66",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "11.11",
@@ -302,13 +332,13 @@
     {
         "address": "0x1E992ee11A9F3F98c3A685b75a99fb41D18b5c32",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "9.32",
         "upPercent": "3.2",
         "upDelay": "818",
-        "petalCount": 0,
+        "petalCount": 1,
         "owner": "0x3AcfBFb967A65B22a66fc9e999E79AB567207777",
         "owner2": "0xBE58414F452669aF622F61634ea3c592038d010c",
         "owner3": "0xd95768a3707fD088fE5A6C14b7564D02C71DcDF6",
@@ -317,7 +347,7 @@
     {
         "address": "0x2904563F1A34f7527136Af92ed041aa1648a76d3",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "10.55",
@@ -332,7 +362,7 @@
     {
         "address": "0x72B287f72d62EcA09bd6c208b3C23603763B79df",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "10.67",
@@ -347,7 +377,7 @@
     {
         "address": "0xC62E3f8154118199614A3A9C580256c61a902831",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.46",
@@ -362,7 +392,7 @@
     {
         "address": "0x1E0a44E0C2bbc71e20240f17A9524cBBC0c45D77",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "9.36",
@@ -377,7 +407,7 @@
     {
         "address": "0x29d1f8cF49CA525a8266D1541e39C10Ba23E2FEC",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "9.54",
@@ -392,7 +422,7 @@
     {
         "address": "0x8eB4219ff8e7711d8E621B0A00Bc24b4bE3968aF",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.56",
@@ -407,7 +437,7 @@
     {
         "address": "0xBb674A8eBE6082fF888fD0b0B71f4C830be8a224",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.85",
@@ -422,7 +452,7 @@
     {
         "address": "0x4d2e86902898100E6cdAB63Cd8484d72226108C9",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.12",
@@ -437,7 +467,7 @@
     {
         "address": "0x21a977e4eE83a55E54B8bf897CE44f612BDa8da6",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.04",
@@ -452,7 +482,7 @@
     {
         "address": "0xEc728B2aDf39A297C26319DaB114E1Ea24E61308",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.96",
@@ -467,7 +497,7 @@
     {
         "address": "0xe49Ac12deF18F63a5fb4d0F21BbAF11816B50224",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.78",
@@ -482,7 +512,7 @@
     {
         "address": "0x869712018A572Bc2652C76c3CAcA418564E11cCC",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "5.71",
@@ -497,7 +527,7 @@
     {
         "address": "0xB709d449873563c1c3018ca01892E400eC2c071B",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.8",
@@ -512,7 +542,7 @@
     {
         "address": "0x594f6D1bF2D8b74C08fd0bCAf60308D7E4D4348f",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.95",
@@ -527,7 +557,7 @@
     {
         "address": "0xB4B66FE9805FbB13bd2b6C37B4A23e217B8BE27A",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "5.03",
@@ -542,7 +572,7 @@
     {
         "address": "0x02AaFf1b759B35EC667ac626e444Fcd8D3fEE1f2",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "5.66",
@@ -557,7 +587,7 @@
     {
         "address": "0x19d14C66E58B323ACb605524a43754938De71c54",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "5.76",
@@ -572,7 +602,7 @@
     {
         "address": "0xc9A84540D68714D147477Ac6074B646bC50fBa08",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "4.84",
@@ -587,7 +617,7 @@
     {
         "address": "0xbEd5ed8455BB08006d0e83Cd2AD7D778d2e97Ed6",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.48",
@@ -602,7 +632,7 @@
     {
         "address": "0x8191ACe31baA572cF6406194274B2F85eb602b33",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.21",
@@ -617,7 +647,7 @@
     {
         "address": "0x5Ae481eFC7Bc05C0cde47CB117e49a703eF32f2D",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.56",
@@ -632,7 +662,7 @@
     {
         "address": "0xc44269ED08C9E97AF8dE456643b23feB2Df6E819",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.97",
@@ -647,7 +677,7 @@
     {
         "address": "0x52443A3481bD733F990409c77110b3bcc5694825",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.32",
@@ -662,7 +692,7 @@
     {
         "address": "0xD682bBf3Cdc5C76e309aD23530225AbdE348E7d0",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "5.65",
@@ -677,7 +707,7 @@
     {
         "address": "0x1f1f0Bd56F9b9FdadFf2515F1c9E5208cAdb03bD",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.67",
@@ -692,7 +722,7 @@
     {
         "address": "0xdD8AF52a5e6A76Cb2Ed5f72052a76F0c2caD2542",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "7.66",
@@ -707,7 +737,7 @@
     {
         "address": "0x1EC5BaDbed887c5bCee81dbb3513bb520378728A",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.08",
@@ -722,7 +752,7 @@
     {
         "address": "0xD97bBf3C895d4695d09D21535C18CEa41b2C3bf3",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "8.8",
@@ -737,7 +767,7 @@
     {
         "address": "0xa1433f8760bA00F8BB79a8327aE6ad7b04608e86",
         "pairedAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-        "price": "0.000000696969696969",
+        "price": "0.00000069",
         "totalSupply": "0",
         "pairedBalance": "0.0000",
         "burnRate": "6.35",
