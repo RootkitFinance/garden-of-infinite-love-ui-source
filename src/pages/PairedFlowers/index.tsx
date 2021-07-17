@@ -5,7 +5,7 @@ import styled from "styled-components"
 import FlowersGrid from "../../components/FlowersGrid";
 import Loader from "../../components/Loader";
 import { serializedPaired } from "../../constants";
-import { ControlCenterContext } from "../../contexts/ControlCenterContext";
+import { AppContext } from "../../contexts/AppContext";
 import { FlowerInfo } from "../../dtos/FlowerInfo";
 import { FlowerService } from "../../services/FlowerService";
 import { isAddress, supportedChain } from "../../utils";
@@ -22,7 +22,7 @@ export const PairedFlowers = () => {
     const { account, library, chainId } = useWeb3React();
     const [flowers, setFlowers] = useState<FlowerInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const { chain } = useContext(ControlCenterContext);
+    const { chain } = useContext(AppContext);
 
     useEffect(() => {
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import CurrencyInput from "../CurrencyInput"
 import { useWeb3React } from "@web3-react/core"
 import ActionModal from "../ActionModal"
-import { ControlCenterContext } from "../../contexts/ControlCenterContext";
+import { AppContext } from "../../contexts/AppContext";
 import { supportedChain } from "../../utils";
 import { FlowerService } from "../../services/FlowerService";
 import { getBalanceNumber, getDisplayBalance, getFullDisplayBalance } from "../../utils/formatBalance"
@@ -11,7 +11,7 @@ const Sell = ({ flowerAddress, isOpen, onDismiss } : { flowerAddress: string, is
     const { account, library, chainId } = useWeb3React();
     const [value, setValue] = useState<string>("");    
     const [balance, setBalance] = useState<any>();
-    const { chain } = useContext(ControlCenterContext);
+    const { chain } = useContext(AppContext);
 
     useEffect(() => {
         const getBalance = async () => setBalance(await new FlowerService(library, account!, chain).getBalance(flowerAddress, account!));

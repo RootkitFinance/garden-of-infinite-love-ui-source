@@ -98,5 +98,6 @@ export interface WalletInfo {
 export const serializedPaired = new Set(["0x1759254eb142bcf0175347d5a0f3c19235538a9a", "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c", "0xe9e7cea3dedca5984780bafc599bd69add087d56"]) 
 
 export const NetworkContextName = "NETWORK"  
+export const DEPLOYER_ADDRESS = '0x804CC8D469483d202c69752ce0304F71ae14ABdf'
 
 

@@ -12,6 +12,7 @@ export class FlowerInfo {
     public owner2: string;
     public owner3: string;
     public petalsLoaded: boolean;
+    public petals: string[];
 
     constructor(
         address: string, 
@@ -39,5 +40,6 @@ export class FlowerInfo {
         this.owner2 = owner2;
         this.owner3 = owner3;
         this.petalsLoaded = false;
+        this.petals = [];
     }
 }

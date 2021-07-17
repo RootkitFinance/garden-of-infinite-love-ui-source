@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { FlowerInfo } from "../../dtos/FlowerInfo"
+import { ImmutableFlowerInfo } from "../../dtos/ImmutableFlowerInfo"
 import { FlowerRow } from "./FlowerRow"
 
 const Wrapper = styled.div`
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 const Header = styled.div`
     display: grid;
     grid-gap: 1.5em;
-    grid-template-columns: 8em 8em 8em 10em 5em 3em 5em 3em 8em 8em 8em;
+    grid-template-columns:  8em 5em 5em 5em 1fr;
     font-size: 0.825rem;
     color: ${({ theme }) => theme.text2};
     border-bottom: 1px solid ${({ theme }) => theme.text3};
@@ -31,10 +31,10 @@ const NumericColumn = styled.span`
     text-align:right;
 `
 
-export default function FlowersGrid({data}:{data:FlowerInfo[]}) {
-    const [flowers, setFlowers] = useState<FlowerInfo[]>(data);
+export default function FlowersGrid({data}:{data:ImmutableFlowerInfo[]}) {
+    const [flowers, setFlowers] = useState<ImmutableFlowerInfo[]>(data);
 
-    const addPetals = (petals: FlowerInfo[]) =>{
+    const addPetals = (petals: ImmutableFlowerInfo[]) =>{
         setFlowers(flowers.concat(petals));
     }
 
@@ -42,16 +42,9 @@ export default function FlowersGrid({data}:{data:FlowerInfo[]}) {
         <Wrapper>
         <Header>
             <span>Address</span>
-            <NumericColumn>Price</NumericColumn>
-            <NumericColumn>Total Supply</NumericColumn>
-            <NumericColumn>Paired Balance</NumericColumn>
             <NumericColumn>Burn Rate</NumericColumn>
             <NumericColumn>Up %</NumericColumn>
-            <NumericColumn>Up Delay</NumericColumn>
-            <NumericColumn>Petals</NumericColumn>
-            <span>Owner</span>
-            <span>Owner 2</span>
-            <span>Owner 3</span>
+            <NumericColumn>Up Delay</NumericColumn>          
         </Header>
         {flowers?.map(x => <FlowerRow key={x.address} flowerInfo={x} addPetals={addPetals}/>)}
         </Wrapper>

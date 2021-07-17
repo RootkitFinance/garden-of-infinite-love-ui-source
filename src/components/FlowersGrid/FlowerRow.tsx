@@ -1,8 +1,8 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { ControlCenterContext } from "../../contexts/ControlCenterContext";
-import { FlowerInfo } from "../../dtos/FlowerInfo";
+import { AppContext } from "../../contexts/AppContext";
+import { ImmutableFlowerInfo } from "../../dtos/ImmutableFlowerInfo";
 import { FlowerService } from "../../services/FlowerService";
 import { getEtherscanLink, shortenAddress } from "../../utils";
 import { ButtonPrimaryGreen, ButtonPrimaryRed, ButtonPrimary, PendingContent } from "../Button";
@@ -12,8 +12,6 @@ import { extractErrorMessage } from "../../utils/extractErrorMessage";
 import { ErrorMessage } from "../ErrorMessage";
 import Buy from "../Buy";
 import Sell from "../Sell";
-import { useEffect } from "react";
-import TransferOwnership from "../TransferOwnership";
 import { useHistory, useParams } from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -24,17 +22,18 @@ const Wrapper = styled.div`
 const TextRow = styled.div`
     display: grid;
     grid-gap: 1.5em;
-    grid-template-columns: 8em 8em 8em 10em 5em 3em 5em 3em 8em 8em 8em;
+    align-items: center;
+    grid-template-columns:  8em 5em 5em 5em 1fr;
     font-size: 0.825rem;
     color: ${({ theme }) => theme.text3};
 `
 
 const ButtonRow = styled.div`
-    padding-top: 1em;
     display: grid;
     grid-gap: 1em;
     grid-auto-flow: column;
     justify-content:end;
+    align-items: cneter;
 `
 
 const AddressLink = styled(ExternalLink)` 
@@ -56,48 +55,20 @@ enum Status {
     Done
 }
 
-export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPetals: (petals: FlowerInfo[]) => void}) => {
+export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: ImmutableFlowerInfo, addPetals: (petals: ImmutableFlowerInfo[]) => void}) => {
     const { account, library, chainId } = useWeb3React();
     const { address } = useParams<{ address: string }>();
     const [loadingPetals, setLoadingPetals] = useState<boolean>(false);
     const [petalsLoaded, setPetalsLoaded] = useState<boolean>(flowerInfo.petalsLoaded);
-    const [price, setPrice] = useState<string>(flowerInfo.price);
-    const [totalSupply, setTotalSupply] = useState<string>(flowerInfo.totalSupply);
-    const [pairedBalance, setPairedBalance] = useState<string>(flowerInfo.pairedBalance);
-
     const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
-    const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);
-    const [payFeesStatus, setPayFeesStatus] = useState<Status>(Status.None);
-    const [claimOwnershipStatus, setClaimOwnershipStatus] = useState<Status>(Status.None);    
+    const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);  
     const [error, setError] = useState("");
     const [transactionHash, setTransactionHash] = useState<string>("");
-    const { chain } = useContext(ControlCenterContext);
+    const { chain } = useContext(AppContext);
     const [buyOpen, setBuyOpen] = useState<boolean>(false);
     const [sellOpen, setSellOpen] = useState<boolean>(false);
-    const [transferOwnershipOpen, setTransferOwnershipOpen] = useState<boolean>(false);
-    const [isOwner, setIsOwner] = useState<boolean>(false);
-    const [isPendingOwner, setIsPendingOwner] = useState<boolean>(false);
+   
     let history = useHistory();
-
-    useEffect(() => {
-        const getOwner = async () => {
-            const service = new FlowerService(library, account!, chain);
-            const owner = await service.getOwner(flowerInfo.address);
-            const pendingOwner = await service.getPendingOwner(flowerInfo.address);
-            setIsOwner(owner === account);
-            setIsPendingOwner(pendingOwner === account);
-        }
-        const getPrice = async () => {
-            const service = new FlowerService(library, account!, chain);
-            setPrice(await service.getPrice(flowerInfo.address));
-            setTotalSupply(await service.getTotalSupply(flowerInfo.address));
-            setPairedBalance(await service.getPairedBalance(flowerInfo.address));
-        }
-        if(account) {
-            getOwner();
-            getPrice();
-        }       
-    },[])
 
     const cover = async () => {
         setCoverStatus(Status.Pending);
@@ -154,50 +125,10 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPe
             setUpOnlyStatus(Status.None); 
         }
     }
-
-    const claimOwnership = async () => {
-        setClaimOwnershipStatus(Status.Pending);
-        try {
-            const service = new FlowerService(library, account!, chain);
-            const txResponse = await service.claimOwnership(flowerInfo.address);
-
-            if (txResponse) {
-                const receipt = await txResponse.wait()
-                if (receipt?.status === 1) {
-                    setTransactionHash(receipt.transactionHash);
-                    setClaimOwnershipStatus(Status.Done);
-                    setIsOwner(true);
-                    setIsPendingOwner(false);
-                }
-                else {
-                    setError("Transaction Failed");
-                    setClaimOwnershipStatus(Status.None); 
-                }
-            }
-        }
-        catch(e){
-            console.log(e)
-            const errorMessage = extractErrorMessage(e);
-            if(errorMessage) {
-                setError(errorMessage);
-            }
-            setClaimOwnershipStatus(Status.None); 
-        }
-    }
-
-    const onTransferOwnership = async () => {
-        setTransferOwnershipOpen(false);
-        const service = new FlowerService(library, account!, chain);
-        const owner = await service.getOwner(flowerInfo.address);
-        const pendingOwner = await service.getPendingOwner(flowerInfo.address);
-        setIsOwner(owner === account);
-        setIsPendingOwner(pendingOwner === account);
-    }
-
     const loadPetals = async () => {
         setLoadingPetals(true);
         const service = new FlowerService(library, account!, chain);
-        const petals = await service.getPetals(flowerInfo.address, flowerInfo.petalCount);
+        const petals = await service.getPetals(flowerInfo.address);
         setPetalsLoaded(true);
         setLoadingPetals(false);
         addPetals(petals);
@@ -221,11 +152,7 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPe
                 hash={transactionHash} 
                 isOpen={upOnlyStatus === Status.Done}
                 onDismiss={() => setUpOnlyStatus(Status.None)} />
-            <TransactionCompletedModal 
-                title={"Fees paid"}
-                hash={transactionHash} 
-                isOpen={payFeesStatus === Status.Done}
-                onDismiss={() => setPayFeesStatus(Status.None)} />
+            
             <Buy 
                 isOpen={buyOpen} 
                 onDismiss={() => setBuyOpen(false)} 
@@ -235,49 +162,31 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: FlowerInfo, addPe
                 isOpen={sellOpen} 
                 onDismiss={() => setSellOpen(false)} 
                 flowerAddress = {flowerInfo.address} />
-            <TransferOwnership
-                isOpen={transferOwnershipOpen} 
-                onDismiss={onTransferOwnership} 
-                flowerAddress = {flowerInfo.address} />
+          
             <TextRow>              
                 <AddressLink href={getEtherscanLink(chainId!, flowerInfo.address, 'address')}>
                     <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.address)}</span>
                 </AddressLink>
-                <NumericColumn>{price}</NumericColumn>
-                <NumericColumn>{totalSupply}</NumericColumn>
-                <NumericColumn>{pairedBalance}</NumericColumn>
                 <NumericColumn>{flowerInfo.burnRate}</NumericColumn>
                 <NumericColumn>{flowerInfo.upPercent}</NumericColumn>
                 <NumericColumn>{flowerInfo.upDelay}</NumericColumn>
-                <NumericColumn>{flowerInfo.petalCount}</NumericColumn>
-                <AddressLink href={getEtherscanLink(chainId!, flowerInfo.owner, 'address')}>
-                    <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.owner)}</span>
-                </AddressLink>
-                <AddressLink href={getEtherscanLink(chainId!, flowerInfo.owner2, 'address')}>
-                    <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.owner2)}</span>
-                </AddressLink>
-                <AddressLink href={getEtherscanLink(chainId!, flowerInfo.owner3, 'address')}>
-                    <span style={{ marginLeft: '4px' }}>{shortenAddress(flowerInfo.owner3)}</span>
-                </AddressLink>
-            </TextRow>            
-            <ButtonRow>
-                <ButtonPrimaryGreen onClick={() => setBuyOpen(true)}>Buy</ButtonPrimaryGreen>
-                <ButtonPrimaryRed onClick={() => setSellOpen(true)}>Sell</ButtonPrimaryRed>
-                {flowerInfo.petalCount < 8 && <ButtonPrimary onClick={cover}>
-                    {coverStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Let Flowers Cover The Earth"}
-                </ButtonPrimary>}           
-                <ButtonPrimary onClick={upOnly}>
-                    {upOnlyStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Up Only"}
-                </ButtonPrimary>           
-                {isOwner && <ButtonPrimary onClick={() => setTransferOwnershipOpen(true)}>Transfer Ownership</ButtonPrimary> }
-                {isPendingOwner && <ButtonPrimary onClick={claimOwnership}>
-                    {claimOwnershipStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Claim Ownership"}
-                </ButtonPrimary>}
-                {!petalsLoaded && flowerInfo.petalCount > 0 && <ButtonPrimary onClick={loadPetals}>
-                    {loadingPetals ? <PendingContent text={"Loading..."}/> : "Show Petals"}
-                </ButtonPrimary>}
-                {address !== flowerInfo.address && <ButtonPrimary onClick={openFlower}>Details</ButtonPrimary>}
+                <ButtonRow>
+                    <ButtonPrimaryGreen onClick={() => setBuyOpen(true)}>Buy</ButtonPrimaryGreen>
+                    <ButtonPrimaryRed onClick={() => setSellOpen(true)}>Sell</ButtonPrimaryRed>
+                    <ButtonPrimary onClick={cover}>
+                        {coverStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Let Flowers Cover The Earth"}
+                    </ButtonPrimary>           
+                    <ButtonPrimary onClick={upOnly}>
+                        {upOnlyStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Up Only"}
+                    </ButtonPrimary>           
+                    {!petalsLoaded && <ButtonPrimary onClick={loadPetals}>
+                        {loadingPetals ? <PendingContent text={"Loading..."}/> : "Show Petals"}
+                    </ButtonPrimary>}
+                    {address !== flowerInfo.address && <ButtonPrimary onClick={openFlower}>Details</ButtonPrimary>}
             </ButtonRow>
+              
+            </TextRow>            
+           
             {error ? <ErrorMessage error={error} /> : null}
         </Wrapper>
     )   

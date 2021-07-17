@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { ControlCenterContext } from "../../contexts/ControlCenterContext";
+import { AppContext } from "../../contexts/AppContext";
 import { FlowerInfo } from "../../dtos/FlowerInfo";
 import { FlowerService } from "../../services/FlowerService";
 import { getEtherscanLink, shortenAddress } from "../../utils";
@@ -63,7 +63,7 @@ export const Flower = ({flowerInfo}:{flowerInfo: FlowerInfo}) => {
     const [claimOwnershipStatus, setClaimOwnershipStatus] = useState<Status>(Status.None);    
     const [error, setError] = useState("");
     const [transactionHash, setTransactionHash] = useState<string>("");
-    const { chain } = useContext(ControlCenterContext);
+    const { chain } = useContext(AppContext);
     const [buyOpen, setBuyOpen] = useState<boolean>(false);
     const [sellOpen, setSellOpen] = useState<boolean>(false);
     const [transferOwnershipOpen, setTransferOwnershipOpen] = useState<boolean>(false);

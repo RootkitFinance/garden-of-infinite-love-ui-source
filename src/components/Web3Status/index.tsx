@@ -17,7 +17,7 @@ import { NetworkContextName } from '../../constants'
 import { TransactionsContext } from '../../contexts/Transactions/TransactionsProvider'
 import { RowBetween } from '../Row'
 import Loader from '../Loader'
-import { ControlCenterContext } from '../../contexts/ControlCenterContext'
+import { AppContext } from '../../contexts/AppContext'
 
 const IconWrapper = styled.div<{ size?: number }>`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -138,7 +138,7 @@ export default function Web3Status() {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const toggleWalletModal = () => { setModalOpen(!modalOpen) }  
   const { transactions } = useContext(TransactionsContext)
-  const { chain } = useContext(ControlCenterContext)
+  const { chain } = useContext(AppContext)
   const suppotedChain = chainId && supportedChain(chainId!, chain)
 
   if (!contextNetwork.active && !active) {

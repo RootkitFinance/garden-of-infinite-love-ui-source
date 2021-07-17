@@ -7,7 +7,7 @@ import { YellowCard } from "../Card";
 import { RowFixed } from "../Row";
 import { Option } from "../Button";
 import { Chain, chains, NETWORK_LABELS } from "../../constants";
-import { ControlCenterContext } from "../../contexts/ControlCenterContext";
+import { AppContext } from "../../contexts/AppContext";
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -106,7 +106,7 @@ const LinksWrapper = styled.div`
 export default function Header() {
   const { account, chainId } = useWeb3React<Web3Provider>();
   const [selectedChain, setSelectedChain] = useState<Chain>(Chain.Ethereum);
-  const { setChain } = useContext(ControlCenterContext);
+  const { setChain } = useContext(AppContext);
 
   useEffect(() => {
     if(chainId) {

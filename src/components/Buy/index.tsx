@@ -7,7 +7,7 @@ import { CloseIcon, CompleteModalContent } from "../CompleteModalContent";
 import { extractErrorMessage } from "../../utils/extractErrorMessage";
 import { FlowerService } from "../../services/FlowerService";
 import { useWeb3React } from "@web3-react/core";
-import { ControlCenterContext } from "../../contexts/ControlCenterContext";
+import { AppContext } from "../../contexts/AppContext";
 import { supportedChain } from "../../utils"
 import CurrencyInput from "../CurrencyInput"
 import { TokenService } from "../../services/TokenService"
@@ -66,7 +66,7 @@ const Buy = (
   
     const [value, setValue] = useState<string>("")    
     const [balance, setBalance] = useState<any>()
-    const { chain } = useContext(ControlCenterContext);
+    const { chain } = useContext(AppContext);
 
     useEffect(() => {
         const getIsApprove = async () => {
@@ -91,7 +91,8 @@ const Buy = (
     }, [chain, pairedAddress, library, account, isOpen, chainId])
 
     useEffect(() =>{
-        setError("")
+        setError("");
+        setValue("");
     }, [isOpen])
 
     const approve = async () => {
@@ -162,10 +163,11 @@ const Buy = (
     }
 
     const close = () =>{
-        setError("")
-        setTransactionHash("")
-        setStatus(Status.None)
-        onDismiss()
+        setError("");
+        setTransactionHash("");
+        setStatus(Status.None);
+        setValue("");
+        onDismiss();
     }
 
     return (

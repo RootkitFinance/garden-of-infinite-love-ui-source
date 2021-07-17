@@ -6,7 +6,7 @@ import { Home } from './pages/Home';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 import ToastProvider from './components/ToastProvider';
 import TransactionsProvider from './contexts/Transactions/TransactionsProvider';
-import { ControlCenterProvider } from './contexts/ControlCenterContext';
+import { AppContextProvider } from './contexts/AppContext';
 import { PairedFlowers } from './pages/PairedFlowers';
 import { Flowers } from './pages/Flowers';
 
@@ -41,7 +41,7 @@ export const App = () => {
     <HashRouter>     
       <AppWrapper>
         <TransactionsProvider>
-          <ControlCenterProvider>                   
+          <AppContextProvider>                   
             <HeaderWrapper>
               <Header />
             </HeaderWrapper>
@@ -56,7 +56,7 @@ export const App = () => {
                   </ToastProvider>
                 </Web3ReactManager>
             </BodyWrapper>
-          </ControlCenterProvider>
+          </AppContextProvider>
         </TransactionsProvider>
       </AppWrapper>
   </HashRouter>

@@ -4,9 +4,9 @@ import React, { useContext, useState } from "react"
 import { useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import styled from "styled-components"
-import { ControlCenterContext } from "../../contexts/ControlCenterContext"
+import { AppContext } from "../../contexts/AppContext"
 import { TokenInfo } from "../../dtos/TokenInfo"
-import { GardenService } from "../../services/GardenService"
+import { CacheService } from "../../services/CacheService"
 
 const Wrapper = styled.div`
     display: grid;
@@ -49,12 +49,12 @@ const StyledNavLink = styled(NavLink).attrs({
 
 export default function TokenList() {
   const { account, library, chainId } = useWeb3React();
-  const { chain } = useContext(ControlCenterContext);
+  const { chain } = useContext(AppContext);
   const [tokens, setTokens] = useState<TokenInfo[]>();
 
   useEffect(() => {
     const getTokens = async () => {
-      const service = new GardenService(library, account!, chain);
+      const service = new CacheService(chain);
       setTokens(await service.getParentTokens());
     }
     getTokens();
