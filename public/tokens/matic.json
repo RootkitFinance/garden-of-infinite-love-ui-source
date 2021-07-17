@@ -2,21 +2,13 @@
     {
         "symbol": "upUSDT",
         "address": "0xCb5f72d37685C3D5aD0bB5F982443BC8FcdF570E"
-    },    
-    {
-        "symbol": "WETH 1",
-        "address": "0x8cc8538d60901d19692F5ba22684732Bc28F54A3"
     },
     {
-        "symbol": "WETH 2",
+        "symbol": "WETH",
         "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
     },
     {
-        "symbol": "DAI 1",
-        "address": "0x84000b263080BC37D1DD73A29D92794A6CF1564e"
-    },
-    {
-        "symbol": "DAI 2",
+        "symbol": "DAI",
         "address": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"
     },
     {
