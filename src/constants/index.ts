@@ -13,6 +13,12 @@ export enum Chain {
   Bsc
 }
 
+export const startBlocks = new Map([
+  [Chain.Ethereum, 12792128],
+  [Chain.Matic, 16666316],
+  [Chain.Bsc, 9000659],
+])
+
 export const baseDecimals = new Map([
   [Chain.Ethereum, 18],
   [Chain.Matic, 6],

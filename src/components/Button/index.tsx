@@ -165,24 +165,19 @@ export const ButtonSecondary = styled(Base)`
 `
 
 export const Option = styled.button<{ active: boolean }>`
-  align-items: center;
-  height: 2em;
-  border-radius: 0.5em;
-  font-size: 1em;
-  min-width: 5em;
-  border: 1px solid ${({ theme }) => theme.bg3};
-  outline: none;
-  cursor: pointer;
-  :hover {
-    border: 1px solid ${({ theme }) => theme.bg4};
-  }
-  :focus {
-    border: 1px solid ${({ theme }) => theme.primary1};
-  }
+align-items: center;
+padding: 0.5em 0.65em;
+font-size: 1em;
+font-weight: 500;
+text-align: center;
+border-radius: 0.5em;
+min-width: 5em;
+border: 0px;
+outline: none;
+cursor: pointer;
 
-  background-color: ${({ active, theme }) => (active ? theme.primary1 : theme.bg2)};
-  color: ${({ active, theme }) => (active ? theme.white : theme.text1)};
-
+background-color: ${({ active, theme }) => (active ? theme.primary1 : theme.bg1)};
+color: ${({ theme, active }) => (active ? theme.text1 : theme.text3)};
 `
 
 export const PendingContent = ({text} : {text:string}) =>{

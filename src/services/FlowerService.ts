@@ -21,51 +21,18 @@ export class FlowerService {
         this.chain = chain;
     }
 
-    // public async getAllFlowers(){
-    //     const service = new CacheService(this.chain);
-    //     const parentTokens = await service.getParentTokens();
-    //     const flowers: FlowerInfo[] = [];
+    public async getOwnedFlowers(pairedAddress: string, owner: string) {
+        if (this.chain!== Chain.Bsc) return [];
+        const response = await fetch(`https://octalily-api-bsc.herokuapp.com/paired/${pairedAddress}/owners/${owner}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+        });
 
-    //     for(let i = 0; i < parentTokens.length; i++){
-    //         const pairedAddress = parentTokens[i].address;
-    //         const contract = new Contract(gardenAddresses.get(this.chain)!, gardenOfInfiniteLoveAbi, this.signer);       
-    //         const count = parseInt(await contract.flowersOfPair(pairedAddress));
-    //         if (count === 0) continue;
-    //         for(let j = 0; j < count; j++){
-    //             const flowerAddress = await contract.pairedFlowers(pairedAddress, j);
-    //             const data = await contract.flowers(flowerAddress);
-    //             const info = await this.getInfo(pairedAddress, flowerAddress, data);
-    //             for(let k = 1; k <= info.petalCount; k++){
-    //                 info.petals.push(await contract.theEightPetals(k))
-    //             }
-
-    //             flowers.push(info);
-    //         }            
-    //    }
-
-    //    console.log(JSON.stringify(flowers));
-    // }
-
-    // public async getFlowers(pairedAddress: string){
-    //     const flowers: FlowerInfo[] = [];
-    //     const parent = (await this.getParentFlower(pairedAddress))!;
-    //     parent.petalsLoaded = true;
-    //     flowers.push(parent!);
-    //     const petals = await this.getPetals(parent!.address);       
-        
-    //     for (let i = 0; i < petals.length; i++){
-    //         const petal = petals[i];
-    //         petal.petalsLoaded = true;
-    //         flowers.push(petal);
-    //         const children = await this.getPetals(petal.address, petal.petalCount);
-    //         for(let j = 0; j < children.length; j++){
-    //             flowers.push(children[j]!);
-    //         }
-            
-    //     }
-    //     console.log(JSON.stringify(flowers));
-    //     return flowers;
-    // }
+        const data = await response.json();
+        return data.map((x:any) => new FlowerInfo(x.flower, x.paired, "0", "0", "0", x.burnRate, x.upPercent, x.upDelay, 0, x.owner, x.owner2, x.owner3))
+    }
 
     public async deserializeFlowers(pairedAddress: string) {
         const response = await fetch(`flowers/${pairedAddress}.json`, {
