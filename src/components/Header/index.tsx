@@ -8,6 +8,7 @@ import { RowFixed } from "../Row";
 import { Option } from "../Button";
 import { Chain, chains, NETWORK_LABELS } from "../../constants";
 import { AppContext } from "../../contexts/AppContext";
+import { useHistory } from "react-router-dom";
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -107,7 +108,8 @@ export default function Header() {
   const { account, chainId } = useWeb3React<Web3Provider>();
   const [selectedChain, setSelectedChain] = useState<Chain>(Chain.Ethereum);
   const { setChain } = useContext(AppContext);
-
+  const history = useHistory();
+  
   useEffect(() => {
     if(chainId) {
       setSelectedChain(chains.get(chainId)!);
@@ -116,6 +118,7 @@ export default function Header() {
 
   useEffect(() => {
     setChain(selectedChain);
+    history.push("/");
   },[selectedChain])
 
   return (

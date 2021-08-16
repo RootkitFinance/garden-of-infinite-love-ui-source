@@ -59,8 +59,7 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: ImmutableFlowerIn
     const { account, library, chainId } = useWeb3React();
     const { address } = useParams<{ address: string }>();
     const [loadingPetals, setLoadingPetals] = useState<boolean>(false);
-    const [petalsLoaded, setPetalsLoaded] = useState<boolean>(flowerInfo.petalsLoaded);
-    const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
+    const [petalsLoaded, setPetalsLoaded] = useState<boolean>(flowerInfo.petalsLoaded);  
     const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);  
     const [error, setError] = useState("");
     const [transactionHash, setTransactionHash] = useState<string>("");
@@ -69,35 +68,7 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: ImmutableFlowerIn
     const [sellOpen, setSellOpen] = useState<boolean>(false);
    
     let history = useHistory();
-
-    const cover = async () => {
-        setCoverStatus(Status.Pending);
-        try {
-            const service = new FlowerService(library, account!, chain);
-            const txResponse = await service.letTheFlowersCoverTheEarth(flowerInfo.address);
-
-            if (txResponse) {
-                const receipt = await txResponse.wait()
-                if (receipt?.status === 1) {
-                    setTransactionHash(receipt.transactionHash);
-                    setCoverStatus(Status.Done);                  
-                }
-                else {
-                    setError("Transaction Failed");
-                    setCoverStatus(Status.None); 
-                }
-            }
-        }
-        catch(e){
-            console.log(e)
-            const errorMessage = extractErrorMessage(e);
-            if(errorMessage) {
-                setError(errorMessage);
-            }
-            setCoverStatus(Status.None); 
-        }       
-    }
-
+   
     const upOnly = async () => {
         setUpOnlyStatus(Status.Pending);
         try {
@@ -141,18 +112,12 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: ImmutableFlowerIn
     }
 
     return (
-        <Wrapper>
-            <TransactionCompletedModal 
-                title={"Flowers Covered the Earth"} 
-                hash={transactionHash} 
-                isOpen={coverStatus === Status.Done} 
-                onDismiss={() => setCoverStatus(Status.None)} />
+        <Wrapper>          
             <TransactionCompletedModal 
                 title={"Up Only Completed"}
                 hash={transactionHash} 
                 isOpen={upOnlyStatus === Status.Done}
-                onDismiss={() => setUpOnlyStatus(Status.None)} />
-            
+                onDismiss={() => setUpOnlyStatus(Status.None)} />            
             <Buy 
                 isOpen={buyOpen} 
                 onDismiss={() => setBuyOpen(false)} 
@@ -172,10 +137,7 @@ export const FlowerRow = ({flowerInfo, addPetals}:{flowerInfo: ImmutableFlowerIn
                 <NumericColumn>{flowerInfo.upDelay}</NumericColumn>
                 <ButtonRow>
                     <ButtonPrimaryGreen onClick={() => setBuyOpen(true)}>Buy</ButtonPrimaryGreen>
-                    <ButtonPrimaryRed onClick={() => setSellOpen(true)}>Sell</ButtonPrimaryRed>
-                    <ButtonPrimary onClick={cover}>
-                        {coverStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Let Flowers Cover The Earth"}
-                    </ButtonPrimary>           
+                    <ButtonPrimaryRed onClick={() => setSellOpen(true)}>Sell</ButtonPrimaryRed>                    
                     <ButtonPrimary onClick={upOnly}>
                         {upOnlyStatus === Status.Pending ? <PendingContent text={"Pending..."}/> : "Up Only"}
                     </ButtonPrimary>           

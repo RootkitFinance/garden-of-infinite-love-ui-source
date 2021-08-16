@@ -31,7 +31,7 @@ export class FlowerService {
         });
 
         const data = await response.json();
-        return data.map((x:any) => new FlowerInfo(x.flower, x.paired, "0", "0", "0", x.burnRate, x.upPercent, x.upDelay, 0, x.owner, x.owner2, x.owner3))
+        return data.map((x:any) => new FlowerInfo(x.address, x.paired, "0", "0", "0", x.burnRate, x.upPercent, x.upDelay, 0, x.owner, x.owner2, x.owner3))
     }
 
     public async deserializeFlowers(pairedAddress: string) {

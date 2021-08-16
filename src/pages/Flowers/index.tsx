@@ -48,10 +48,9 @@ const FeesRowWrapper = styled(CardContent)`
 `
 
 const InfoWrapper = styled.div`
-    padding: 1em;
-    display:grid;
+    display: grid;
     grid-template-columns: 10em auto;
-    grid-gap:1em;
+    grid-gap: 0.75em;
     font-size: 0.875em;
     color: ${({ theme }) => theme.text3}
 `
@@ -73,11 +72,6 @@ const AddressNavLink = styled(NavLink)`
     :hover {
         color: ${({ theme }) => theme.text2};
     } 
-`
-
-const ButtonsWrapper = styled.div`
-    display:grid;
-    grid-auto-flow:column;
 `
 
 const SwapCard = styled(PrimaryCard)`
@@ -148,11 +142,11 @@ export const PetalRow = ({flowerAddress, petal, label, setError}:{flowerAddress:
     }
 
     return (<>
-    <TransactionCompletedModal 
+        <TransactionCompletedModal 
                 title={"Up Only Completed"}
                 hash={transactionHash} 
                 isOpen={collectFeeStatus === Status.Done}
-                onDismiss={() => setCollectFeeStatus(Status.None)} />
+                onDismiss={() => setCollectFeeStatus(Status.None)} />        
         <FeesRowWrapper key={petal.address}>
             <ButtonPrimary onClick={collectFee}> {collectFeeStatus === Status.Pending ? <PendingContent text={"Collecting..."}/>: label }</ButtonPrimary>
             <AddressNavLink exact={true} to={`/flower/${petal.address}`}>{petal.address}</AddressNavLink>
@@ -171,6 +165,7 @@ export const Flowers = () => {
     const [flower, setFlower] = useState<FlowerInfo | undefined>();
     const [payFeesStatus, setPayFeesStatus] = useState<Status>(Status.None);
     const [upOnlyStatus, setUpOnlyStatus] = useState<Status>(Status.None);
+    const [coverStatus, setCoverStatus] = useState<Status>(Status.None);
     const [price, setPrice] = useState<string>("");
     const [totalSupply, setTotalSupply] = useState<string>("");
     const [pairedBalance, setPairedBalance] =  useState<string>("");
@@ -261,6 +256,34 @@ export const Flowers = () => {
         }
     }
 
+    const cover = async () => {
+        setCoverStatus(Status.Pending);
+        try {
+            const service = new FlowerService(library, account!, chain);
+            const txResponse = await service.letTheFlowersCoverTheEarth(flower!.address);
+
+            if (txResponse) {
+                const receipt = await txResponse.wait()
+                if (receipt?.status === 1) {
+                    setTransactionHash(receipt.transactionHash);
+                    setCoverStatus(Status.Done);                  
+                }
+                else {
+                    setError("Transaction Failed");
+                    setCoverStatus(Status.None); 
+                }
+            }
+        }
+        catch(e){
+            console.log(e)
+            const errorMessage = extractErrorMessage(e);
+            if(errorMessage) {
+                setError(errorMessage);
+            }
+            setCoverStatus(Status.None); 
+        }       
+    }
+
     const onSwapComplete = async () => {
         const service = new FlowerService(library, account!, chain)
         setPrice(await service.getPrice(flower!.address));
@@ -277,6 +300,11 @@ export const Flowers = () => {
                 hash={transactionHash} 
                 isOpen={upOnlyStatus === Status.Done}
                 onDismiss={() => setUpOnlyStatus(Status.None)} />
+            <TransactionCompletedModal 
+                title={"Flowers Covered the Earth"} 
+                hash={transactionHash} 
+                isOpen={coverStatus === Status.Done} 
+                onDismiss={() => setCoverStatus(Status.None)} />
             <TransactionCompletedModal 
                 title={"Fees paid"}
                 hash={transactionHash} 
@@ -313,13 +341,17 @@ export const Flowers = () => {
                             <span style={{ marginLeft: '4px' }}>{shortenAddress(flower!.owner3)}</span>
                         </AddressLink>
                     </InfoWrapper>
-                    <ButtonsWrapper>
+                  
                         <ButtonPrimary onClick={upOnly}>
                             {upOnlyStatus === Status.Pending
                                 ? <PendingContent text={"Pending..."}/>
-                                : "UpOnly" }
+                                : "Up Only" }
                         </ButtonPrimary>
-                    </ButtonsWrapper>
+                        <ButtonPrimary onClick={cover}>
+                            {coverStatus === Status.Pending 
+                                ? <PendingContent text={"Pending..."}/> 
+                                : "Let Flowers Cover The Earth" }
+                        </ButtonPrimary>
                     </CardContent>
                 </InfoCard>
                 <FeesCard>
