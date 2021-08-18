@@ -55,6 +55,54 @@ export interface WalletInfo {
     mobileOnly?: true
   }
 
+  export const SUPPORTED_NETWORKS: {
+    [chain in Chain]?: {
+      chainId: string
+      chainName: string
+      nativeCurrency: {
+        name: string
+        symbol: string
+        decimals: number
+      }
+      rpcUrls: string[]
+      blockExplorerUrls: string[]
+    }
+  } = {
+    [Chain.Ethereum]: {
+      chainId: '0x1',
+      chainName: 'Ethereum',
+      nativeCurrency: {
+        name: 'Ethereum',
+        symbol: 'ETH',
+        decimals: 18,
+      },
+      rpcUrls: ['https://mainnet.infura.io/v3'],
+      blockExplorerUrls: ['https://etherscan.com'],
+    },
+    [Chain.Bsc]: {
+      chainId: '0x38',
+      chainName: 'Binance Smart Chain',
+      nativeCurrency: {
+        name: 'Binance Coin',
+        symbol: 'BNB',
+        decimals: 18,
+      },
+      rpcUrls: ['https://bsc-dataseed.binance.org'],
+      blockExplorerUrls: ['https://bscscan.com'],
+    },
+    [Chain.Matic]: {
+      chainId: '0x89',
+      chainName: 'Matic',
+      nativeCurrency: {
+        name: 'Matic',
+        symbol: 'MATIC',
+        decimals: 18,
+      },
+      rpcUrls: ['https://rpc-mainnet.maticvigil.com'],
+      blockExplorerUrls: ['https://polygonscan.com/'],
+    }
+  }
+
   export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     INJECTED: {
       connector: injected,

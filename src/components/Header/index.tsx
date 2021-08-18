@@ -6,7 +6,7 @@ import { Web3Provider } from "@ethersproject/providers";
 import { YellowCard } from "../Card";
 import { RowFixed } from "../Row";
 import { Option } from "../Button";
-import { Chain, chains, NETWORK_LABELS } from "../../constants";
+import { Chain, chains, NETWORK_LABELS, SUPPORTED_NETWORKS } from "../../constants";
 import { AppContext } from "../../contexts/AppContext";
 import { useHistory } from "react-router-dom";
 
@@ -86,6 +86,7 @@ const TitleText = styled.div`
     display: none;
   `};
 `;
+
 const LogoWrapper = styled.div`
   display: grid;
   grid-auto-flow: column;
@@ -105,7 +106,7 @@ const LinksWrapper = styled.div`
 
 
 export default function Header() {
-  const { account, chainId } = useWeb3React<Web3Provider>();
+  const { library, account, chainId } = useWeb3React<Web3Provider>();
   const [selectedChain, setSelectedChain] = useState<Chain>(Chain.Ethereum);
   const { setChain } = useContext(AppContext);
   const history = useHistory();
@@ -118,8 +119,19 @@ export default function Header() {
 
   useEffect(() => {
     setChain(selectedChain);
+    switchChain();
     history.push("/");
   },[selectedChain])
+
+
+  const switchChain = () => {
+    const params = SUPPORTED_NETWORKS[selectedChain]!;
+    if (selectedChain === Chain.Ethereum) {
+      library?.send('wallet_switchEthereumChain', [{ chainId: params.chainId }, account])
+    } else {
+      library?.send('wallet_addEthereumChain', [params, account])
+    }
+  }
 
   return (
     <HeaderFrame>
